@@ -35,4 +35,9 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="WebServerMain">
+        <java classname="g53sqm.jibble.WebServerMain" failonerror="true" fork="yes">
+            <classpath refid="Jibble.classpath"/>
+        </java>
+    </target>
 </project>
