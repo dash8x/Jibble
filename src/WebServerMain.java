@@ -25,7 +25,7 @@ public class WebServerMain {
     public static void main(String[] args) {
         
         String rootDir = WebServerConfig.DEFAULT_ROOT_DIRECTORY;
-        int port = 8088;//WebServerConfig.DEFAULT_PORT;
+        int port = WebServerConfig.DEFAULT_PORT;
         
         if (args.length > 0) {
             rootDir = args[0];
