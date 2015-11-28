@@ -8,12 +8,17 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.SystemOutRule;
 
 public class WebServerConfigTest {
 
+	@Rule
+	public final SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+	
 	@Test
-	public void testWebServerConfig() {
+	public void testWebServerConfigEmpty() {
 		//test empty constructor
 		WebServerConfig config1 = new WebServerConfig();
 		assertEquals("./webfiles", config1.getRootDirectory());
@@ -21,8 +26,11 @@ public class WebServerConfigTest {
 		assertEquals("./jibble.conf", config1.getConfigFile());
 		assertEquals("./cgi-bin", config1.getCgiBinDirectory());
 		assertEquals("./jibble.log", config1.getLogFile());
-		assertEquals(true, config1.getEnableConsoleLogging());
-		
+		assertEquals(true, config1.getEnableConsoleLogging());				
+	}
+	
+	@Test
+	public void testWebServerConfigParams() {
 		//test parameter constructor
 		WebServerConfig config2 = new WebServerConfig("./mydir", 80, "hello.conf", "bindir", "j.log", false);
 		assertEquals("./mydir", config2.getRootDirectory());
@@ -30,7 +38,20 @@ public class WebServerConfigTest {
 		assertEquals("hello.conf", config2.getConfigFile());
 		assertEquals("bindir", config2.getCgiBinDirectory());
 		assertEquals("j.log", config2.getLogFile());
-		assertEquals(false, config2.getEnableConsoleLogging());
+		assertEquals(false, config2.getEnableConsoleLogging());			
+	}
+	
+	@Test
+	public void testWebServerConfigFile() {
+		//test parameter constructor
+		WebServerConfig config1 = new WebServerConfig("conf.missing");
+		assertEquals("Error: Config file conf.missing not found.\nWarning: Using default config settings.\n", systemOutRule.getLogWithNormalizedLineSeparator());
+		assertEquals("./webfiles", config1.getRootDirectory());
+		assertEquals(8088, config1.getPort());
+		assertEquals("./jibble.conf", config1.getConfigFile());
+		assertEquals("./cgi-bin", config1.getCgiBinDirectory());
+		assertEquals("./jibble.log", config1.getLogFile());
+		assertEquals(true, config1.getEnableConsoleLogging());		
 	}
 	
 	@Test(expected = FileNotFoundException.class)

@@ -55,6 +55,45 @@ public class WebServerConfig {
     }
     
     /**
+	 * Config file constructor
+	 */
+    public WebServerConfig(String config_file) {
+    	Properties configs = new Properties();
+    	//read the config file
+    	try {
+			configs = readConfigFile(config_file);
+		} catch (FileNotFoundException e) {
+			//file not found
+			System.out.println("Error: Config file " + config_file + " not found.\nWarning: Using default config settings.");
+			config_file = DEFAULT_CONFIG_FILE;
+		} catch (IOException e) {
+			//error reading
+			System.out.println("Error: Failed reading config file " + config_file + ".\nWarning: Using default config settings.");
+			config_file = DEFAULT_CONFIG_FILE;
+		}
+    	
+    	//get the values
+    	String root_directory = configs.getProperty("root_directory", DEFAULT_ROOT_DIRECTORY);
+    	String cgi_bin_directory = configs.getProperty("cgi_bin_directory", DEFAULT_CGI_BIN_DIRECTORY);
+    	String log_file = configs.getProperty("log_file", DEFAULT_LOG_FILE);
+    	String enable_console_logging = configs.getProperty("enable_console_logging", String.format("%s", DEFAULT_ENABLE_CONSOLE_LOGGING));
+    	int port = DEFAULT_PORT;
+    	try {
+    		port = Integer.parseInt(configs.getProperty("port", Integer.toString(DEFAULT_PORT)));
+    	} catch (NumberFormatException e) {
+    		System.out.println("Error: Invalid port number in config file.\nWarning: Using default port " + port);
+    	}
+
+    	//set the values
+    	this.root_directory = root_directory;
+    	this.port = port;
+    	this.config_file = config_file;
+    	this.cgi_bin_directory = cgi_bin_directory;
+    	this.log_file = log_file;
+    	this.enable_console_logging = enable_console_logging.equals("true") ? true : enable_console_logging.equals("false") ? false : DEFAULT_ENABLE_CONSOLE_LOGGING;
+    }
+    
+    /**
 	 * Constructor
 	 */
     public WebServerConfig(String root_directory, int port, String config_file, String cgi_bin_directory, String log_file, boolean enable_console_logging) {
@@ -147,14 +186,22 @@ public class WebServerConfig {
      */
     public static Properties readConfigFile(String file_name) throws IOException {
     	
-    	//read the file
-    	File config_file = new File("config.properties");    	 
-    	FileReader reader = new FileReader(config_file);    	 
-    	
     	Properties props = new Properties();
-    	 
-    	// load the properties file:
-    	props.load(reader);
+    	
+    	File config_file = new File("config.properties");
+    	FileReader reader = null;
+    	
+    	try {
+	    	//read the file	    	    	
+	    	reader = new FileReader(config_file);    	 	    		    
+	    	 
+	    	// load the properties file:
+	    	props.load(reader);
+    	} finally {
+    		if ( reader != null ) {
+    			reader.close();
+    		}
+    	}
     	
     	return props;
     }
