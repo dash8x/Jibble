@@ -188,7 +188,7 @@ public class WebServerConfig {
     	
     	Properties props = new Properties();
     	
-    	File config_file = new File("config.properties");
+    	File config_file = new File(file_name);
     	FileReader reader = null;
     	
     	try {
