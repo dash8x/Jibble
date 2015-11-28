@@ -29,11 +29,70 @@ import java.util.*;
  */
 public class WebServerConfig {
     
-    private WebServerConfig() {
-        // Prevent the default constructor from being called.
+	//config parameters
+	 private final String root_directory;
+	 private final int port;	
+	 private final String config_file;
+	 private final String cgi_bin_directory;
+	 private final String log_file;
+	 private final boolean enable_console_logging;
+
+	/**
+	 * Empty Constructor
+	 * Sets all parameters to default
+	 */
+    public WebServerConfig() {
+    	this.root_directory = DEFAULT_ROOT_DIRECTORY;
+    	this.port = DEFAULT_PORT;
+    	this.config_file = DEFAULT_CONFIG_FILE;
+    	this.cgi_bin_directory = DEFAULT_CGI_BIN_DIRECTORY;
+    	this.log_file = DEFAULT_LOG_FILE;
+    	this.enable_console_logging = DEFAULT_ENABLE_CONSOLE_LOGGING;
     }
     
-    public static final String VERSION = "<a href=\"http://www.jibble.org\">Jibble Web Server 1.0</a> - An extremely small Java web server";
+    /**
+	 * @return the root_directory
+	 */
+	public String getRootDirectory() {
+		return root_directory;
+	}
+
+	/**
+	 * @return the port
+	 */
+	public int getPort() {
+		return port;
+	}
+
+	/**
+	 * @return the config_file
+	 */
+	public String getConfigFile() {
+		return config_file;
+	}
+
+	/**
+	 * @return the cgi_bin_directory
+	 */
+	public String getCgiBinDirectory() {
+		return cgi_bin_directory;
+	}
+
+	/**
+	 * @return the log_file
+	 */
+	public String getLogFile() {
+		return log_file;
+	}
+
+	/**
+	 * @return the enable_console_logging
+	 */
+	public boolean getEnableConsoleLogging() {
+		return enable_console_logging;
+	}
+
+	public static final String VERSION = "<a href=\"http://www.jibble.org\">Jibble Web Server 1.0</a> - An extremely small Java web server";
     
     public static final String DEFAULT_ROOT_DIRECTORY = "./webfiles";
     public static final int DEFAULT_PORT = 8088;
