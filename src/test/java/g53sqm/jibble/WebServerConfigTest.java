@@ -58,11 +58,11 @@ public class WebServerConfigTest {
 		systemOutRule.clearLog();
 		String file = Paths.get(getClass().getResource("/test-conf3.conf").toURI()).toString();
 		WebServerConfig config2 = new WebServerConfig(file);
-		assertEquals("Error: Failed reading config file " + file + ".\nWarning: Using default config settings.\n", systemOutRule.getLogWithNormalizedLineSeparator());
+		assertEquals("Error: Invalid port number in config file.\nWarning: Using default port 8080\n", systemOutRule.getLogWithNormalizedLineSeparator());
 		assertEquals("./webfiles", config2.getRootDirectory());
-		assertEquals(8088, config2.getPort());
+		assertEquals(8080, config2.getPort());
 		assertEquals("./jibble.conf", config2.getConfigFile());
-		assertEquals("./cgi-bin", config2.getCgiBinDirectory());
+		assertEquals("./cgi", config2.getCgiBinDirectory());
 		assertEquals("./jibble.log", config2.getLogFile());
 		assertEquals(true, config2.getEnableConsoleLogging());		
 	}
