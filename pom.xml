@@ -29,4 +29,11 @@
   <ciManagement>
   	<url>https://travis-ci.com/dash8x/Jibble</url>
   </ciManagement>
+  <dependencies>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>3.8.2</version>
+  	</dependency>
+  </dependencies>
 </project>
