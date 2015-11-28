@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.Properties;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
@@ -40,7 +41,8 @@ public class WebServerConfigTest {
 		assertEquals("j.log", config2.getLogFile());
 		assertEquals(false, config2.getEnableConsoleLogging());			
 	}
-	
+		
+	@Ignore
 	@Test
 	public void testWebServerConfigFile() throws URISyntaxException {
 		//test missing file
