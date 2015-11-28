@@ -41,8 +41,7 @@ public class WebServerConfigTest {
 		assertEquals("j.log", config2.getLogFile());
 		assertEquals(false, config2.getEnableConsoleLogging());			
 	}
-	
-	@Ignore
+		
 	@Test
 	public void testWebServerConfigFile() throws URISyntaxException {
 		//test missing file
@@ -70,13 +69,7 @@ public class WebServerConfigTest {
 	@Test(expected = FileNotFoundException.class)
 	public void testReadConfigFileFileNotFound() throws IOException {
 		WebServerConfig.readConfigFile("conf.missing");
-	}
-	
-	@Test(expected = IOException.class)
-	public void testReadConfigException() throws IOException, URISyntaxException {
-		String file = Paths.get(getClass().getResource("/test-conf3.conf").toURI()).toString();
-		WebServerConfig.readConfigFile(file);
-	}
+	}	
 		
 	@Test
 	public void testReadConfigFile() throws IOException, URISyntaxException {		
