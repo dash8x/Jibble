@@ -38,6 +38,12 @@ public class WebServerConfig {
     public static final String DEFAULT_ROOT_DIRECTORY = "./webfiles";
     public static final int DEFAULT_PORT = 8088;
     
+    //extra values
+    public static final String DEFAULT_CONFIG_FILE = "./jibble.conf";
+    public static final String DEFAULT_CGI_BIN_DIRECTORY = "./cgi-bin";
+    public static final String DEFAULT_LOG_FILE = "./jibble.log";
+    public static final boolean DEFAULT_ENABLE_CONSOLE_LOGGING = true;
+    
     public static final String[] DEFAULT_FILES = new String[] {"index.html", "index.htm", "index.shtml", "index.shtm", "index.stm", "index.sht"};
     
     public static final byte[] LINE_SEPARATOR = "\r\n".getBytes();
