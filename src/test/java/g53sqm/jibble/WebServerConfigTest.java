@@ -55,6 +55,7 @@ public class WebServerConfigTest {
 		assertEquals(true, config1.getEnableConsoleLogging());
 		
 		//test invalid file
+		systemOutRule.clearLog();
 		String file = Paths.get(getClass().getResource("/test-conf3.conf").toURI()).toString();
 		WebServerConfig config2 = new WebServerConfig(file);
 		assertEquals("Error: Failed reading config file " + file + ".\nWarning: Using default config settings.\n", systemOutRule.getLogWithNormalizedLineSeparator());
