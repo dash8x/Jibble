@@ -5,8 +5,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Jibble</name>
   <description>Extremely small web server written in Java.</description>
-  <build>
-    <sourceDirectory>src</sourceDirectory>
+  <build>    
     <resources>
       <resource>
         <directory>src</directory>
