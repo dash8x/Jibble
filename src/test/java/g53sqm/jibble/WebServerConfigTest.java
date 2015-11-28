@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import org.junit.Test;
@@ -36,8 +38,11 @@ public class WebServerConfigTest {
 		WebServerConfig.readConfigFile("conf.missing");
 	}
 		
-	public void testReadConfigFile() throws IOException {
-		Properties props1 = WebServerConfig.readConfigFile("jibble.conf");
+	public void testReadConfigFile() throws IOException, URISyntaxException {
+		String file1 = Paths.get(getClass().getResource("test-conf1.conf").toURI()).toString();
+		Properties props1 = WebServerConfig.readConfigFile(file1);
+		assertEquals("./htdocs", props1.getProperty("root_directory"));
+		assertEquals("./htdocs", props1.getProperty("root_directory"));
 		assertEquals("./htdocs", props1.getProperty("root_directory"));
 	}
 
