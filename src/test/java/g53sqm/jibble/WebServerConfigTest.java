@@ -39,11 +39,23 @@ public class WebServerConfigTest {
 	}
 		
 	public void testReadConfigFile() throws IOException, URISyntaxException {
+		//read test file 1
 		String file1 = Paths.get(getClass().getResource("test-conf1.conf").toURI()).toString();
 		Properties props1 = WebServerConfig.readConfigFile(file1);
 		assertEquals("./htdocs", props1.getProperty("root_directory"));
-		assertEquals("./htdocs", props1.getProperty("root_directory"));
-		assertEquals("./htdocs", props1.getProperty("root_directory"));
+		assertEquals("8000", props1.getProperty("port"));
+		assertEquals("./cgi", props1.getProperty("cgi_bin_directory"));
+		assertEquals("j.log", props1.getProperty("log_file"));
+		assertEquals("false", props1.getProperty("enable_console_logging"));		
+		
+		//read test file 2
+		String file2 = Paths.get(getClass().getResource("test-conf2.conf").toURI()).toString();
+		Properties props2 = WebServerConfig.readConfigFile(file2);
+		assertEquals("./htdocs", props2.getProperty("root_directory"));
+		assertNull(props2.getProperty("port"));
+		assertEquals("./cgi", props2.getProperty("cgi_bin_directory"));
+		assertNull(props2.getProperty("log_file"));
+		assertEquals("", props2.getProperty("enable_console_logging"));
 	}
 
 }
