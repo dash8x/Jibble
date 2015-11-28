@@ -66,7 +66,7 @@ public class WebServerConfig {
 			//file not found
 			System.out.println("Error: Config file " + config_file + " not found.\nWarning: Using default config settings.");
 			config_file = DEFAULT_CONFIG_FILE;
-		} catch (Exception e) {
+		} catch (IOException | IllegalArgumentException e) {
 			//error reading
 			System.out.println("Error: Failed reading config file " + config_file + ".\nWarning: Using default config settings.");
 			config_file = DEFAULT_CONFIG_FILE;
