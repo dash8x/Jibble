@@ -42,8 +42,8 @@ public class WebServerConfigTest {
 	}
 	
 	@Test
-	public void testWebServerConfigFile() {
-		//test parameter constructor
+	public void testWebServerConfigFile() throws URISyntaxException {
+		//test missing file
 		WebServerConfig config1 = new WebServerConfig("conf.missing");
 		assertEquals("Error: Config file conf.missing not found.\nWarning: Using default config settings.\n", systemOutRule.getLogWithNormalizedLineSeparator());
 		assertEquals("./webfiles", config1.getRootDirectory());
@@ -51,7 +51,18 @@ public class WebServerConfigTest {
 		assertEquals("./jibble.conf", config1.getConfigFile());
 		assertEquals("./cgi-bin", config1.getCgiBinDirectory());
 		assertEquals("./jibble.log", config1.getLogFile());
-		assertEquals(true, config1.getEnableConsoleLogging());		
+		assertEquals(true, config1.getEnableConsoleLogging());
+		
+		//test invalid file
+		String file = Paths.get(getClass().getResource("test-conf3.conf").toURI()).toString();
+		WebServerConfig config2 = new WebServerConfig(file);
+		assertEquals("Error: Failed reading config file " + file + ".\nWarning: Using default config settings.\n", systemOutRule.getLogWithNormalizedLineSeparator());
+		assertEquals("./webfiles", config2.getRootDirectory());
+		assertEquals(8088, config2.getPort());
+		assertEquals("./jibble.conf", config2.getConfigFile());
+		assertEquals("./cgi-bin", config2.getCgiBinDirectory());
+		assertEquals("./jibble.log", config2.getLogFile());
+		assertEquals(true, config2.getEnableConsoleLogging());		
 	}
 	
 	@Test(expected = FileNotFoundException.class)
