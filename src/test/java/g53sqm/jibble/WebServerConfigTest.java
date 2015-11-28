@@ -59,8 +59,8 @@ public class WebServerConfigTest {
 		WebServerConfig.readConfigFile("conf.missing");
 	}
 	
-	@Test(expected = IOException.class)
-	public void testReadConfigIOException() throws IOException, URISyntaxException {
+	@Test(expected = Exception.class)
+	public void testReadConfigException() throws IOException, URISyntaxException {
 		String file = Paths.get(getClass().getResource("test-conf3.conf").toURI()).toString();
 		WebServerConfig.readConfigFile(file);
 	}
