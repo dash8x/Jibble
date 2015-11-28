@@ -51,6 +51,18 @@ public class WebServerConfig {
     }
     
     /**
+	 * Constructor
+	 */
+    public WebServerConfig(String root_directory, int port, String config_file, String cgi_bin_directory, String log_file, boolean enable_console_logging) {
+    	this.root_directory = root_directory;
+    	this.port = port;
+    	this.config_file = config_file;
+    	this.cgi_bin_directory = cgi_bin_directory;
+    	this.log_file = log_file;
+    	this.enable_console_logging = enable_console_logging;
+    }
+    
+    /**
 	 * @return the root_directory
 	 */
 	public String getRootDirectory() {
