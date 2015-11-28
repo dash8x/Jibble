@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -33,6 +34,11 @@ public class WebServerConfigTest {
 	@Test(expected = FileNotFoundException.class)
 	public void testReadConfigFileFileNotFound() throws IOException {
 		WebServerConfig.readConfigFile("conf.missing");
+	}
+		
+	public void testReadConfigFile() throws IOException {
+		Properties props1 = WebServerConfig.readConfigFile("jibble.conf");
+		assertEquals("./htdocs", props1.getProperty("root_directory"));
 	}
 
 }
