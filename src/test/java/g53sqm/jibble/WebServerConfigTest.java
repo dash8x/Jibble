@@ -58,6 +58,12 @@ public class WebServerConfigTest {
 	public void testReadConfigFileFileNotFound() throws IOException {
 		WebServerConfig.readConfigFile("conf.missing");
 	}
+	
+	@Test(expected = IOException.class)
+	public void testReadConfigIOException() throws IOException, URISyntaxException {
+		String file = Paths.get(getClass().getResource("test-conf3.conf").toURI()).toString();
+		WebServerConfig.readConfigFile(file);
+	}
 		
 	public void testReadConfigFile() throws IOException, URISyntaxException {
 		//read test file 1
