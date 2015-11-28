@@ -1,4 +1,4 @@
-package test.java;
+package g53sqm.jibble;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import main.java.Logger;
+import g53sqm.jibble.Logger;
 
 @RunWith(Parameterized.class)
 public class LoggerTest {

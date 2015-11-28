@@ -1,4 +1,4 @@
-package main.java;
+package g53sqm.jibble;
 /* 
 Copyright Paul James Mutton, 2001-2004, http://www.jibble.org/
 
@@ -64,6 +64,15 @@ public class WebServerConfig {
         return extension.toLowerCase();
     }
     
+    /**
+     * Reads a configuration file 
+     * @param file_name
+     * @return
+     */
+    public static Properties readConfigFile(String file_name) {
+    	return null;
+    }
+   
     static {
         
         // Set up the SSI filename extensions.
