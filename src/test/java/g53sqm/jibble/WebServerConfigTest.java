@@ -61,7 +61,7 @@ public class WebServerConfigTest {
 		assertEquals("Error: Invalid port number in config file.\nWarning: Using default port 8088\n", systemOutRule.getLogWithNormalizedLineSeparator());
 		assertEquals("./webfiles", config2.getRootDirectory());
 		assertEquals(8088, config2.getPort());
-		assertEquals("./jibble.conf", config2.getConfigFile());
+		assertEquals(file, config2.getConfigFile());
 		assertEquals("./cgi", config2.getCgiBinDirectory());
 		assertEquals("./jibble.log", config2.getLogFile());
 		assertEquals(true, config2.getEnableConsoleLogging());		
