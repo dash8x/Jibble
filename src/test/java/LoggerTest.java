@@ -11,7 +11,7 @@ import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import main.Logger;
+import main.java.Logger;
 
 @RunWith(Parameterized.class)
 public class LoggerTest {
