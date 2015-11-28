@@ -16,6 +16,10 @@ $Id: WebServerConfig.java,v 1.2 2004/02/01 13:37:35 pjm2 Exp $
 */
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -139,9 +143,20 @@ public class WebServerConfig {
      * Reads a configuration file 
      * @param file_name
      * @return
+     * @throws IOException 
      */
-    public static Properties readConfigFile(String file_name) {
-    	return null;
+    public static Properties readConfigFile(String file_name) throws IOException {
+    	
+    	//read the file
+    	File config_file = new File("config.properties");    	 
+    	FileReader reader = new FileReader(config_file);    	 
+    	
+    	Properties props = new Properties();
+    	 
+    	// load the properties file:
+    	props.load(reader);
+    	
+    	return props;
     }
    
     static {

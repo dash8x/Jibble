@@ -2,6 +2,9 @@ package g53sqm.jibble;
 
 import static org.junit.Assert.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import org.junit.Test;
 
 public class WebServerConfigTest {
@@ -25,6 +28,11 @@ public class WebServerConfigTest {
 		assertEquals("bindir", config2.getCgiBinDirectory());
 		assertEquals("j.log", config2.getLogFile());
 		assertEquals(false, config2.getEnableConsoleLogging());
+	}
+	
+	@Test(expected = FileNotFoundException.class)
+	public void testReadConfigFileFileNotFound() throws IOException {
+		WebServerConfig.readConfigFile("conf.missing");
 	}
 
 }
