@@ -15,7 +15,7 @@ public class WebServerTest {
 	public void testWebServer() throws WebServerException {
 		exception.expect(WebServerException.class);
 	    exception.expectMessage("Unable to determine the canonical path of the web root directory.");
-	    new WebServer("missing_dir", 8080, "cgi-bin", "jibble.log", true);
+	    new WebServer("missing_dir?:!*", 8080, "cgi-bin", "jibble.log", true);
 	}
 
 }
