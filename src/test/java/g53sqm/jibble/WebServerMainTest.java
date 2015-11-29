@@ -33,7 +33,7 @@ public class WebServerMainTest {
 	public void testMain() throws URISyntaxException {	
 		String file = Paths.get(getClass().getResource(configFile).toURI()).toString();
 	    WebServerMain.main(new String[]{file});
-	    assertEquals(expectedMessage, systemOutRule.getLogWithNormalizedLineSeparator());
+	    assertEquals("g53sqm.jibble.WebServerException: " + expectedMessage, systemOutRule.getLogWithNormalizedLineSeparator());
 	}
 	
 	@Parameterized.Parameters
@@ -41,7 +41,7 @@ public class WebServerMainTest {
 		return Arrays.asList(new Object[][] {
 			{ "Unable to determine the canonical path of the web root directory.\n", "/test-conf4.conf" },
 			{ "The specified root directory does not exist or is not a directory.\n",  "/test-conf5.conf" },
-			{ "Unable to determine the canonical path of the cgi-bin directory\n.",  "/test-conf6.conf" },
+			{ "Unable to determine the canonical path of the cgi-bin directory.\n",  "/test-conf6.conf" },
 			{ "The specified cgi-bin directory does not exist or is not a directory.\n",  "/test-conf7.conf" },
 			{ "Unable to determine the canonical path of the log file.\n", "/test-conf8.conf" },
 			{ "The specified log file does not exist or is not a file.\n", "/test-conf9.conf" },
