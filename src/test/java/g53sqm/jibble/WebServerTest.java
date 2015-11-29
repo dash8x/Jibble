@@ -35,7 +35,7 @@ public class WebServerTest {
 	public ExpectedException exception = ExpectedException.none();			
 		
 	@Test
-	public void testWebServerMissingLogFile() throws WebServerException {	    	    
+	public void testWebServer() throws WebServerException {	    	    
 	    exception.expect(WebServerException.class);
 	    exception.expectMessage(expectedMessage);
 	    new WebServer(rootDir, port, cgiBinDir, logFile, enableConsoleLogging);
