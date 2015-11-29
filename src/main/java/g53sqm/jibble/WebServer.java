@@ -50,18 +50,7 @@ public class WebServer {
         if (!_rootDir.isDirectory()) {
             throw new WebServerException("The specified root directory does not exist or is not a directory.");
         }
-        
-        //cgi-bin dir
-        try {
-        	_cgiBinDir = new File(cgiBinDir).getCanonicalFile();
-        }
-        catch (IOException e) {
-            throw new WebServerException("Unable to determine the canonical path of the cgi-bin directory.");
-        }
-        if (!_cgiBinDir.isDirectory()) {
-            throw new WebServerException("The specified cgi-bin directory does not exist or is not a directory.");
-        }
-        
+                
         //log file
         try {
         	_logFile = new File(logFile).getCanonicalFile();
@@ -73,6 +62,7 @@ public class WebServer {
             throw new WebServerException("The specified log file does not exist or is not a file.");
         }
         
+        _cgiBinDir = cgiBinDir;
         _enableConsoleLogging = enableConsoleLogging;
         _port = port;
     }
@@ -140,7 +130,7 @@ public class WebServer {
                 // Pass the socket to a new thread so that it can be dealt with
                 // while we can go and get ready to accept another connection.
                 Socket socket = serverSocket.accept();
-                RequestThread requestThread = new RequestThread(socket, _rootDir);
+                RequestThread requestThread = new RequestThread(socket, _rootDir, _cgiBinDir);
                 Thread thread = new Thread(threadGroup, requestThread);
                 thread.start();
             }
@@ -153,7 +143,7 @@ public class WebServer {
     private File _rootDir;
     private int _port;
     private boolean _active = true;
-    private File _cgiBinDir;
+    private String _cgiBinDir;
     private File _logFile;  
     private boolean _enableConsoleLogging;
 

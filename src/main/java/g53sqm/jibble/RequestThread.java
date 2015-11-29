@@ -35,9 +35,10 @@ public class RequestThread implements Runnable {
 
 	private final static Logger logger = LoggerFactory.getLogger("Jibble.logger");
 
-    public RequestThread(Socket socket, File rootDir) {
+    public RequestThread(Socket socket, File rootDir, String cgiBinDir) {
         _socket = socket;
         _rootDir = rootDir;
+        _cgiBinDir = cgiBinDir;
     }
     
     // handles a connction from a client.
@@ -234,5 +235,6 @@ public class RequestThread implements Runnable {
     
     private Socket _socket;
     private File _rootDir;
+    private String _cgiBinDir;
 
 }
