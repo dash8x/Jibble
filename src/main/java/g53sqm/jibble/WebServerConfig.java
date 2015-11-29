@@ -76,7 +76,7 @@ public class WebServerConfig {
     	String root_directory = configs.getProperty("root_directory", DEFAULT_ROOT_DIRECTORY);
     	String cgi_bin_directory = configs.getProperty("cgi_bin_directory", DEFAULT_CGI_BIN_DIRECTORY);
     	String log_file = configs.getProperty("log_file", DEFAULT_LOG_FILE);
-    	String enable_console_logging = configs.getProperty("enable_console_logging", String.format("%s", DEFAULT_ENABLE_CONSOLE_LOGGING));
+    	String enable_console_logging = configs.getProperty("enable_console_logging", String.format("%s", DEFAULT_ENABLE_CONSOLE_LOGGING));    	
     	int port = DEFAULT_PORT;
     	try {
     		port = Integer.parseInt(configs.getProperty("port", Integer.toString(DEFAULT_PORT)));
