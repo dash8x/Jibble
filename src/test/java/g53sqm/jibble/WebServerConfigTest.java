@@ -64,7 +64,17 @@ public class WebServerConfigTest {
 		assertEquals(file, config2.getConfigFile());
 		assertEquals("./cgi", config2.getCgiBinDirectory());
 		assertEquals("./jibble.log", config2.getLogFile());
-		assertEquals(true, config2.getEnableConsoleLogging());		
+		assertEquals(false, config2.getEnableConsoleLogging());
+		
+		//test valid file
+		String file2 = Paths.get(getClass().getResource("/test-conf1.conf").toURI()).toString();
+		WebServerConfig config3 = new WebServerConfig(file2);		
+		assertEquals("./htdocs", config3.getRootDirectory());
+		assertEquals(8000, config3.getPort());
+		assertEquals(file2, config3.getConfigFile());
+		assertEquals("./cgi", config3.getCgiBinDirectory());
+		assertEquals("j.log", config3.getLogFile());
+		assertEquals(false, config3.getEnableConsoleLogging());			
 	}
 	
 	@Test(expected = FileNotFoundException.class)
