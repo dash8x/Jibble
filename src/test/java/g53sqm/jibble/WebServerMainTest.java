@@ -38,14 +38,11 @@ public class WebServerMainTest {
 	
 	@Parameterized.Parameters
 	public static Collection primeNumbers() {		
-		return Arrays.asList(new Object[][] {
-			{ "Unable to determine the canonical path of the web root directory.\n", "/test-conf4.conf" },
-			{ "The specified root directory does not exist or is not a directory.\n",  "/test-conf5.conf" },
-			{ "Unable to determine the canonical path of the cgi-bin directory.\n",  "/test-conf6.conf" },
-			{ "The specified cgi-bin directory does not exist or is not a directory.\n",  "/test-conf7.conf" },
-			{ "Unable to determine the canonical path of the log file.\n", "/test-conf8.conf" },
-			{ "The specified log file does not exist or is not a file.\n", "/test-conf9.conf" },
-			{ "Cannot start the web server on port -1.\n", "/test-conf10.conf" }
+		return Arrays.asList(new Object[][] {			
+			{ "The specified root directory does not exist or is not a directory.\n",  "/test-conf4.conf" },			
+			{ "The specified cgi-bin directory does not exist or is not a directory.\n",  "/test-conf5.conf" },
+			{ "The specified log file does not exist or is not a file.\n", "/test-conf6.conf" },
+			{ "Cannot start the web server on port -1.\n", "/test-conf7.conf" }
 		});
 	}
 
