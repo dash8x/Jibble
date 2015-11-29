@@ -30,7 +30,7 @@ import java.util.*;
  */
 public class WebServer {
     
-    public WebServer(String rootDir, int port) throws WebServerException {
+    public WebServer(String rootDir, int port, String cgiBinDir, String logFile, boolean enableConsoleLogging) throws WebServerException {
         try {
             _rootDir = new File(rootDir).getCanonicalFile();
         }
@@ -40,6 +40,18 @@ public class WebServer {
         if (!_rootDir.isDirectory()) {
             throw new WebServerException("The specified root directory does not exist or is not a directory.");
         }
+        
+        //cgi-bin dir
+        try {
+        	_cgiBinDir = new File(cgiBinDir).getCanonicalFile();
+        }
+        catch (IOException e) {
+            throw new WebServerException("Unable to determine the canonical path of the cgi-bin directory.");
+        }
+        if (!_cgiBinDir.isDirectory()) {
+            throw new WebServerException("The specified cgi-bin directory does not exist or is not a directory.");
+        }
+        
         _port = port;
     }
     
@@ -75,5 +87,8 @@ public class WebServer {
     private File _rootDir;
     private int _port;
     private boolean _active = true;
+    private File _cgiBinDir;
+    private File _logFile;  
+    private boolean _enableConsoleLogging;
 
 }

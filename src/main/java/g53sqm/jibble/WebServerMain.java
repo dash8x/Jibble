@@ -27,6 +27,9 @@ public class WebServerMain {
         
         String rootDir = WebServerConfig.DEFAULT_ROOT_DIRECTORY;
         int port = WebServerConfig.DEFAULT_PORT;
+        String cgiBinDir = WebServerConfig.DEFAULT_CGI_BIN_DIRECTORY;
+        String logFile = WebServerConfig.DEFAULT_LOG_FILE;
+        boolean enableConsoleLogging = WebServerConfig.DEFAULT_ENABLE_CONSOLE_LOGGING;
         
         if (args.length > 0) {
             rootDir = args[0];
@@ -42,7 +45,7 @@ public class WebServerMain {
         }
         
         try {
-            WebServer server = new WebServer(rootDir, port);
+            WebServer server = new WebServer(rootDir, port, cgiBinDir, logFile, enableConsoleLogging);
             server.activate();
         }
         catch (WebServerException e) {
