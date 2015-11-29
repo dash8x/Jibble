@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RequestThread implements Runnable {
 
-	private final static Logger logger = LoggerFactory.getLogger(RequestThread.class);
+	private final static Logger logger = LoggerFactory.getLogger("Jibble.logger");
 
     public RequestThread(Socket socket, File rootDir) {
         _socket = socket;

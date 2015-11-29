@@ -20,6 +20,14 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.core.FileAppender;
+
 /**
  * The central class to the Jibble Web Server.  This is instantiated
  * by the WebServerMain class and listens for connections on the
@@ -28,8 +36,8 @@ import java.util.*;
  * 
  * @author Copyright Paul Mutton, http://www.jibble.org/
  */
-public class WebServer {
-    
+public class WebServer {    
+	
     public WebServer(String rootDir, int port, String cgiBinDir, String logFile, boolean enableConsoleLogging) throws WebServerException {
         try {
             _rootDir = new File(rootDir).getCanonicalFile();
@@ -67,8 +75,30 @@ public class WebServer {
         _port = port;
     }
     
+    /**
+     * Configures logging
+     */
+    private void configureLogging() {    	        
+        LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+        Logger jibble_logger = loggerContext.getLogger("Jibble.logger");
+         
+        PatternLayoutEncoder encoder = new PatternLayoutEncoder();
+        encoder.setContext(loggerContext);
+        encoder.setPattern("%d{HH:mm:ss.SSS} [%-5level] %msg %n");
+        encoder.start();
+         
+        FileAppender<ILoggingEvent> fileAppender = new FileAppender<ILoggingEvent>();
+        fileAppender.setContext(loggerContext);
+        fileAppender.setFile(_logFile.getPath());
+        fileAppender.setAppend(false);
+        fileAppender.setEncoder(encoder);
+        jibble_logger.addAppender(fileAppender);
+        fileAppender.start();
+    }
+    
     public void activate() throws WebServerException {
         ServerSocket serverSocket = null;
+        configureLogging();
         try {
             serverSocket = new ServerSocket(_port);
             System.out.println("Jibble web server (modified by Arushad Ahmed (014147) for G53SQM)");
