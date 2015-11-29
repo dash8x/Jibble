@@ -26,6 +26,8 @@ import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.Logger;
+import ch.qos.logback.core.Appender;
+import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.FileAppender;
 
 /**
@@ -81,7 +83,24 @@ public class WebServer {
     private void configureLogging() {    	        
         LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
         Logger jibble_logger = loggerContext.getLogger("Jibble.logger");
-         
+        
+        //disable console logging
+        if ( !_enableConsoleLogging ) {          	
+        	ConsoleAppender<?> console = null;
+        	//find all console appenders and stop them
+        	for (Logger logger : loggerContext.getLoggerList()) {
+        	     for (Iterator<Appender<ILoggingEvent>> index = logger.iteratorForAppenders();
+        	                 index.hasNext();){
+        	    	 Object enumElement = index.next();
+        	    	 if (enumElement instanceof ConsoleAppender) {
+        	    		 console=(ConsoleAppender<?>)enumElement;
+        	    		 console.stop();
+        	    	 }
+        	     }
+        	}        	
+        }
+        
+        //setup file logging        
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
         encoder.setContext(loggerContext);
         encoder.setPattern("%d{HH:mm:ss.SSS} [%-5level] %msg %n");
@@ -89,11 +108,13 @@ public class WebServer {
          
         FileAppender<ILoggingEvent> fileAppender = new FileAppender<ILoggingEvent>();
         fileAppender.setContext(loggerContext);
+        fileAppender.setName("FILE");
         fileAppender.setFile(_logFile.getPath());
-        fileAppender.setAppend(false);
+        fileAppender.setAppend(true);
         fileAppender.setEncoder(encoder);
         jibble_logger.addAppender(fileAppender);
-        fileAppender.start();
+        fileAppender.start();                
+        
     }
     
     public void activate() throws WebServerException {
