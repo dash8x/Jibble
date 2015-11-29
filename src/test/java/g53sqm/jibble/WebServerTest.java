@@ -19,7 +19,7 @@ public class WebServerTest {
 	@Test
 	public void testActivate() throws WebServerException {	    	    
 	    exception.expect(WebServerException.class);
-	    exception.expectMessage("Cannot start the web server on port -1 .");
+	    exception.expectMessage("Cannot start the web server on port -1.");
 	    new WebServer("webfiles", -1, "cgi-bin", "jibble.log", true).activate();
 	}
 
