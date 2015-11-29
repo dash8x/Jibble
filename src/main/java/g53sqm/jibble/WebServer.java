@@ -52,6 +52,17 @@ public class WebServer {
             throw new WebServerException("The specified cgi-bin directory does not exist or is not a directory.");
         }
         
+      //log file
+        try {
+        	_logFile = new File(logFile).getCanonicalFile();
+        }
+        catch (IOException e) {
+            throw new WebServerException("Unable to determine the canonical path of the log file.");
+        }
+        if (!_logFile.isFile()) {
+            throw new WebServerException("The specified log file does not exist or is not a file.");
+        }
+        
         _port = port;
     }
     

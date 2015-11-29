@@ -28,6 +28,14 @@ public class WebServerTest {
 	    exception.expect(WebServerException.class);
 	    exception.expectMessage("The specified cgi-bin directory does not exist or is not a directory.");
 	    new WebServer("webfiles", 8080, "missing_dir", "jibble.log", true);
+	    
+	    exception.expect(WebServerException.class);
+	    exception.expectMessage("Unable to determine the canonical path of the log file.");
+	    new WebServer("webfiles", 8080, "cgi-bin", "missing-file?:!*", true);
+	    
+	    exception.expect(WebServerException.class);
+	    exception.expectMessage("The specified log file does not exist or is not a file.");
+	    new WebServer("webfiles", 8080, "cgi-bin", "missing-file", true);
 	}
 
 }
