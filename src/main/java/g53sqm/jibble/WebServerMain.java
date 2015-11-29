@@ -25,27 +25,17 @@ public class WebServerMain {
 
     public static void main(String[] args) {
         
-        String rootDir = WebServerConfig.DEFAULT_ROOT_DIRECTORY;
-        int port = WebServerConfig.DEFAULT_PORT;
-        String cgiBinDir = WebServerConfig.DEFAULT_CGI_BIN_DIRECTORY;
-        String logFile = WebServerConfig.DEFAULT_LOG_FILE;
-        boolean enableConsoleLogging = WebServerConfig.DEFAULT_ENABLE_CONSOLE_LOGGING;
+        String configFile = WebServerConfig.DEFAULT_CONFIG_FILE;        
         
         if (args.length > 0) {
-            rootDir = args[0];
+        	configFile = args[0];
         }
         
-        if (args.length > 1) {
-            try {
-                port = Integer.parseInt(args[1]);
-            }
-            catch (NumberFormatException e) {
-                // Stick with the default value.
-            }
-        }
+        //read the configurations
+        WebServerConfig config = new WebServerConfig(configFile);
         
         try {
-            WebServer server = new WebServer(rootDir, port, cgiBinDir, logFile, enableConsoleLogging);
+            WebServer server = new WebServer(config.getRootDirectory(), config.getPort(), config.getCgiBinDirectory(), config.getLogFile(), config.getEnableConsoleLogging());
             server.activate();
         }
         catch (WebServerException e) {

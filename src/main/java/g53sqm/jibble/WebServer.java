@@ -52,7 +52,7 @@ public class WebServer {
             throw new WebServerException("The specified cgi-bin directory does not exist or is not a directory.");
         }
         
-      //log file
+        //log file
         try {
         	_logFile = new File(logFile).getCanonicalFile();
         }
@@ -63,6 +63,7 @@ public class WebServer {
             throw new WebServerException("The specified log file does not exist or is not a file.");
         }
         
+        _enableConsoleLogging = enableConsoleLogging;
         _port = port;
     }
     
@@ -73,6 +74,9 @@ public class WebServer {
             System.out.println("Jibble web server (modified by Arushad Ahmed (014147) for G53SQM)");
             System.out.println("Root Directory: " + _rootDir);
             System.out.println("Port: " + _port);
+            System.out.println("Cgi-bin Directory: " + _cgiBinDir);
+            System.out.println("Log file: " + _logFile);
+            System.out.println("Enable console logging: " + _enableConsoleLogging);
         }
         catch (Exception e) {
             throw new WebServerException("Cannot start the web server on port " + _port + ".");
