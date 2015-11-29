@@ -163,7 +163,7 @@ public class RequestThread implements Runnable {
             String extension = WebServerConfig.getExtension(file);
             
             // Execute any files in any cgi-bin directories under the web root.
-            if (file.getParent().indexOf("cgi-bin") >= 0) {
+            if (file.getParent().indexOf(_cgiBinDir) >= 0) {
                 try {
                     out.write("HTTP/1.0 200 OK\r\n".getBytes());
                     ServerSideScriptEngine.execute(out, headers, file, path);

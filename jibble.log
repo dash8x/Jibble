@@ -14,3 +14,4 @@
 20:17:03.918 [DEBUG] 0:0:0:0:0:0:0:1 "GET /SQM-logo2.png HTTP/1.1" 200 
 20:17:24.729 [DEBUG] 0:0:0:0:0:0:0:1 "GET / HTTP/1.1" 200 
 20:17:24.758 [DEBUG] 0:0:0:0:0:0:0:1 "GET /SQM-logo2.png HTTP/1.1" 200 
+21:53:24.014 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.bat HTTP/1.1" 200 

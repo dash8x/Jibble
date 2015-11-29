@@ -88,7 +88,7 @@ public class WebServerConfig {
     	this.root_directory = root_directory;
     	this.port = port;
     	this.config_file = config_file;
-    	this.cgi_bin_directory = cgi_bin_directory;
+    	this.cgi_bin_directory = cgi_bin_directory.replaceFirst("^./", ""); //replace initial ./
     	this.log_file = log_file;
     	this.enable_console_logging = enable_console_logging.equals("true") ? true : enable_console_logging.equals("false") ? false : DEFAULT_ENABLE_CONSOLE_LOGGING;
     }
@@ -154,7 +154,7 @@ public class WebServerConfig {
     
     //extra values
     public static final String DEFAULT_CONFIG_FILE = "./jibble.conf";
-    public static final String DEFAULT_CGI_BIN_DIRECTORY = "./cgi-bin";
+    public static final String DEFAULT_CGI_BIN_DIRECTORY = "cgi-bin";
     public static final String DEFAULT_LOG_FILE = "./jibble.log";
     public static final boolean DEFAULT_ENABLE_CONSOLE_LOGGING = true;
     

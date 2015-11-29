@@ -43,17 +43,20 @@ public class WebServerConfigTest {
 	}
 		
 	@Test
-	public void testWebServerConfigFile() throws URISyntaxException {
+	public void testWebServerConfigMissingFile() throws URISyntaxException {
 		//test missing file
 		WebServerConfig config1 = new WebServerConfig("conf.missing");
 		assertEquals("Error: Config file conf.missing not found.\nWarning: Using default config settings.\n", systemOutRule.getLogWithNormalizedLineSeparator());
 		assertEquals("./webfiles", config1.getRootDirectory());
 		assertEquals(8088, config1.getPort());
 		assertEquals("./jibble.conf", config1.getConfigFile());
-		assertEquals("./cgi-bin", config1.getCgiBinDirectory());
+		assertEquals("cgi-bin", config1.getCgiBinDirectory());
 		assertEquals("./jibble.log", config1.getLogFile());
-		assertEquals(true, config1.getEnableConsoleLogging());
-		
+		assertEquals(true, config1.getEnableConsoleLogging());		
+	}
+	
+	@Test
+	public void testWebServerConfigInvalidPortFile() throws URISyntaxException {			
 		//test invalid file
 		systemOutRule.clearLog();
 		String file = Paths.get(getClass().getResource("/test-conf3.conf").toURI()).toString();
@@ -62,17 +65,20 @@ public class WebServerConfigTest {
 		assertEquals("./webfiles", config2.getRootDirectory());
 		assertEquals(8088, config2.getPort());
 		assertEquals(file, config2.getConfigFile());
-		assertEquals("./cgi", config2.getCgiBinDirectory());
+		assertEquals("cgi", config2.getCgiBinDirectory());
 		assertEquals("./jibble.log", config2.getLogFile());
-		assertEquals(false, config2.getEnableConsoleLogging());
-		
+		assertEquals(false, config2.getEnableConsoleLogging());		
+	}
+	
+	@Test
+	public void testWebServerConfigValidFile() throws URISyntaxException {							
 		//test valid file
 		String file2 = Paths.get(getClass().getResource("/test-conf1.conf").toURI()).toString();
 		WebServerConfig config3 = new WebServerConfig(file2);		
 		assertEquals("./htdocs", config3.getRootDirectory());
 		assertEquals(8000, config3.getPort());
 		assertEquals(file2, config3.getConfigFile());
-		assertEquals("./cgi", config3.getCgiBinDirectory());
+		assertEquals("cgi./scripts", config3.getCgiBinDirectory());
 		assertEquals("j.log", config3.getLogFile());
 		assertEquals(false, config3.getEnableConsoleLogging());			
 	}
@@ -83,7 +89,7 @@ public class WebServerConfigTest {
 	}	
 		
 	@Test
-	public void testReadConfigFile() throws IOException, URISyntaxException {		
+	public void testReadConfigFile1() throws IOException, URISyntaxException {		
 		//read test file 1
 		String file1 = Paths.get(getClass().getResource("/test-conf1.conf").toURI()).toString();
 		Properties props1 = WebServerConfig.readConfigFile(file1);
@@ -91,14 +97,17 @@ public class WebServerConfigTest {
 		assertEquals("8000", props1.getProperty("port"));
 		assertEquals("./cgi", props1.getProperty("cgi_bin_directory"));
 		assertEquals("j.log", props1.getProperty("log_file"));
-		assertEquals("false", props1.getProperty("enable_console_logging"));		
-		
+		assertEquals("false", props1.getProperty("enable_console_logging"));
+	}
+	
+	@Test
+	public void testReadConfigFile2() throws IOException, URISyntaxException {								
 		//read test file 2
 		String file2 = Paths.get(getClass().getResource("/test-conf2.conf").toURI()).toString();
 		Properties props2 = WebServerConfig.readConfigFile(file2);
 		assertEquals("./htdocs", props2.getProperty("root_directory"));
 		assertNull(props2.getProperty("port"));
-		assertEquals("./cgi", props2.getProperty("cgi_bin_directory"));
+		assertEquals("cgi./scripts", props2.getProperty("cgi_bin_directory"));
 		assertNull(props2.getProperty("log_file"));
 		assertEquals("", props2.getProperty("enable_console_logging"));
 	}
