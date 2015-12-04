@@ -22,6 +22,7 @@ public class WebServerConfigConstructorTest {
 	private int port;
 	private String cgiBinDir;
 	private String logFile;
+	private String configFile;
 	private boolean enableConsoleLogging;
 	private String expectedMessage;
 	
@@ -31,7 +32,7 @@ public class WebServerConfigConstructorTest {
 	/**
 	 * Constructor
 	 */
-	public WebServerConfigConstructorTest(WebServerConfig config, String rootDir, int port, String cgiBinDir, String logFile, boolean enableConsoleLogging, String expectedMessage) {
+	public WebServerConfigConstructorTest(WebServerConfig config, String rootDir, int port, String configFile, String cgiBinDir, String logFile, boolean enableConsoleLogging, String expectedMessage) {
 		this.config = config;
 		this.rootDir = rootDir;
 		this.port = port;
@@ -39,6 +40,7 @@ public class WebServerConfigConstructorTest {
 		this.logFile = logFile;
 		this.enableConsoleLogging = enableConsoleLogging;
 		this.expectedMessage = expectedMessage;
+		this.configFile = configFile;
 	}
 	
 	@Parameterized.Parameters
@@ -62,6 +64,11 @@ public class WebServerConfigConstructorTest {
 	@Test
 	public void testPort() {				
 		assertEquals(port, config.getPort());				
+	}
+	
+	@Test
+	public void testConfigFile() {
+		assertEquals(configFile, config.getConfigFile());			
 	}
 	
 	@Test
