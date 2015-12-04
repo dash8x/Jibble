@@ -36,7 +36,7 @@ public class RequestThreadParametizedTest {
 			{ "GET http://google.com HTTP/1.0", "GET", "http://google.com" },
 			{ "OPTIONS cgi/bin HTTP/1.1", "OPTIONS", "cgi/bin" },
 			{ "HEAD /test/files/test.html HTTP/1.1", "HEAD", "/test/files/test.html" },
-			{ "/test/files/test.html HTTP/1.1", "", "/test/files/test.html" },
+			{ "/test/files/test.html HTTP/1.1", "/test/files/test.html", "" },
 			{ "POST HTTP/1.1", "POST", "" },
 			{ "POST ", "POST", "" },
 			{ "POST", "", "" },
