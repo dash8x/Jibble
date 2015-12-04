@@ -115,3 +115,78 @@
 23:14:17.391 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
 23:14:18.522 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
 23:14:37.393 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:32:21.462 [DEBUG] 0:0:0:0:0:0:0:1 "GET / HTTP/1.1" 200 
+22:32:21.671 [DEBUG] 0:0:0:0:0:0:0:1 "GET /SQM-logo2.png HTTP/1.1" 200 
+22:32:21.817 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:32:21.821 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:32:39.439 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:32:41.956 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:32:45.256 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:32:57.825 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:33:35.420 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:34:17.565 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:36:15.819 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:36:16.090 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:36:16.103 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:36:51.847 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:37:05.331 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:37:25.548 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:37:25.717 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:37:25.731 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:37:35.994 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:39:43.407 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:42:25.161 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:42:25.299 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:42:25.326 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:42:37.183 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:42:37.778 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:42:37.818 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:45:20.935 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:45:27.362 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:46:09.419 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:46:09.633 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:46:09.647 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:46:41.314 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:48:02.513 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.php HTTP/1.1" 404 
+22:48:02.817 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:02.829 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:13.491 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:48:13.660 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:13.680 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:20.317 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:20.344 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:31.834 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:31.914 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:32.933 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:48:33.109 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:33.131 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:38.536 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:48:38.786 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:48:38.809 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:04.113 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:04.140 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:05.175 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.php HTTP/1.1" 404 
+22:49:05.341 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:05.455 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:08.590 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.php HTTP/1.1" 404 
+22:49:08.772 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:08.793 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:10.742 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.php HTTP/1.1" 404 
+22:49:10.976 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:11.010 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:12.466 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.php HTTP/1.1" 404 
+22:49:12.642 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:12.676 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:59.166 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:49:59.368 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:49:59.480 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:50:06.523 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:50:08.415 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:50:40.995 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:50:42.760 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:50:50.585 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:51:43.305 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:51:46.636 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:52:53.331 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:52:53.544 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:52:53.795 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 

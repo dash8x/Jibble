@@ -233,6 +233,24 @@ public class RequestThread implements Runnable {
         }
     }
     
+    /**
+     * Returns the HTTP method from a string
+     */
+    public static String getRequestMethod(String line) {
+    	String method = "";
+    	method = line.substring(0, line.indexOf(' '));
+    	return method;
+    }
+    
+    /**
+     * Returns the HTTP request path from a string
+     */
+    public static String getRequestPath(String line) {
+    	String path = "";
+    	path = line.substring(line.indexOf(' '), line.length() - 9);
+    	return path;
+    }
+    
     private Socket _socket;
     private File _rootDir;
     private String _cgiBinDir;
