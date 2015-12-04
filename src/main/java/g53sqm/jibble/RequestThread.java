@@ -248,6 +248,7 @@ public class RequestThread implements Runnable {
     public static String getRequestPath(String line) {
     	String path = "";
     	path = line.substring(line.indexOf(' '), line.length() - 9);
+    	path = path.trim();
     	return path;
     }
     
