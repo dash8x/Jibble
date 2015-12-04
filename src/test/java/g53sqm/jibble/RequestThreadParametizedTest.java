@@ -43,7 +43,8 @@ public class RequestThreadParametizedTest {
 			{ "POST cgi/binHTTP/1.1", "POST", "cgi/bi" },
 			{ "POSTcgi/bin HTTP/1.1", "POSTcgi/bin", "" },
 			{ "POST cgi/bin", "POST", "" },
-			{ "", "", "" }
+			{ "", "", "" },
+			{ null, "", "" }
 		});
 	}
 	

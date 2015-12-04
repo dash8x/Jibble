@@ -34,6 +34,10 @@ import org.slf4j.LoggerFactory;
 public class RequestThread implements Runnable {
 
 	private final static Logger logger = LoggerFactory.getLogger("Jibble.logger");
+	private static final Set<String> ALLOWED_METHODS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
+		     new String[] {"POST","GET","HEAD","OPTIONS"}
+		)));
+	
 
     public RequestThread(Socket socket, File rootDir, String cgiBinDir) {
         _socket = socket;
@@ -51,12 +55,15 @@ public class RequestThread implements Runnable {
             ip = _socket.getInetAddress().getHostAddress();
             BufferedReader in = new BufferedReader(new InputStreamReader(_socket.getInputStream()));
             BufferedOutputStream out = new BufferedOutputStream(_socket.getOutputStream());
-            
-            String path = "";
+                        
             // Read the first line from the client.
             request = in.readLine();
-            if (request != null && request.startsWith("GET ") && (request.endsWith(" HTTP/1.0") || request.endsWith("HTTP/1.1"))) {
-                path = request.substring(4, request.length() - 9);
+            //get the method
+            String method = getRequestMethod(request);
+            //get path
+            String path = "";
+            if (request != null && ALLOWED_METHODS.contains(method) && (request.endsWith(" HTTP/1.0") || request.endsWith("HTTP/1.1"))) {
+            	path = getRequestPath(request);
             }
             else {
                 // Invalid request type (no "GET")
@@ -238,9 +245,11 @@ public class RequestThread implements Runnable {
      */
     public static String getRequestMethod(String line) {
     	String method = "";
-    	try {	
-    		method = line.substring(0, line.indexOf(' '));
-    	} catch (StringIndexOutOfBoundsException e) {}
+    	if ( line != null) {
+	    	try {	
+	    		method = line.substring(0, line.indexOf(' '));
+	    	} catch (StringIndexOutOfBoundsException e) {}
+    	}
     	return method;
     }
     
@@ -249,10 +258,12 @@ public class RequestThread implements Runnable {
      */
     public static String getRequestPath(String line) {
     	String path = "";
-    	try {
-    		path = line.substring(line.indexOf(' '), line.length() - 9);
-    		path = path.trim();
-    	} catch (StringIndexOutOfBoundsException e) {}
+    	if ( line != null) {
+	    	try {
+	    		path = line.substring(line.indexOf(' '), line.length() - 9);
+	    		path = path.trim();
+	    	} catch (StringIndexOutOfBoundsException e) {}
+    	}
     	return path;
     }
     
