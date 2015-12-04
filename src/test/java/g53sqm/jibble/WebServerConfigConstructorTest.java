@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Rule;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 import org.junit.runner.RunWith;
@@ -26,7 +26,10 @@ public class WebServerConfigConstructorTest {
 	private boolean enableConsoleLogging;
 	private String expectedMessage;
 	private String actualMessage;
-		
+	
+	@ClassRule
+	public final static SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+	
 	/**
 	 * Constructor
 	 */
@@ -44,10 +47,7 @@ public class WebServerConfigConstructorTest {
 	}
 	
 	@Parameterized.Parameters
-	public static Collection primeNumbers() throws URISyntaxException {	
-		
-		SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-		
+	public static Collection primeNumbers() throws URISyntaxException {		
 		String file1 = Paths.get(WebServerConfigConstructorTest.class.getResource("/test-conf3.conf").toURI()).toString();
 		String file2 = Paths.get(WebServerConfigConstructorTest.class.getResource("/test-conf1.conf").toURI()).toString();
 		
