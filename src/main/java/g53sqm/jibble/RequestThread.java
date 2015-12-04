@@ -238,7 +238,9 @@ public class RequestThread implements Runnable {
      */
     public static String getRequestMethod(String line) {
     	String method = "";
-    	method = line.substring(0, line.indexOf(' '));
+    	try {	
+    		method = line.substring(0, line.indexOf(' '));
+    	} catch (StringIndexOutOfBoundsException e) {}
     	return method;
     }
     
@@ -247,8 +249,10 @@ public class RequestThread implements Runnable {
      */
     public static String getRequestPath(String line) {
     	String path = "";
-    	path = line.substring(line.indexOf(' '), line.length() - 9);
-    	path = path.trim();
+    	try {
+    		path = line.substring(line.indexOf(' '), line.length() - 9);
+    		path = path.trim();
+    	} catch (StringIndexOutOfBoundsException e) {}
     	return path;
     }
     
