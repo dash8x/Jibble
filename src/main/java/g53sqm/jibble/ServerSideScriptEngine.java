@@ -47,8 +47,7 @@ public class ServerSideScriptEngine {
         
         // Execute the external command
         String filename = file.toString();
-        String[] cmdarray = null;
-        
+        String[] cmdarray = null;        
         if (filename.toLowerCase().endsWith(".pl")) {
             cmdarray = new String[]{"perl", filename};
         }
@@ -64,8 +63,8 @@ public class ServerSideScriptEngine {
         InputStream in = process.getInputStream();
         byte[] buffer = new byte[4096];
         int bytesRead;
-        while ((bytesRead = in.read(buffer, 0, 4096)) != -1) {
-            out.write(buffer, 0, bytesRead);
+        while ((bytesRead = in.read(buffer, 0, 4096)) != -1) {        	
+            out.write(buffer, 0, bytesRead);            
         }
         in.close();
         

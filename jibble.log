@@ -15,3 +15,103 @@
 20:17:24.729 [DEBUG] 0:0:0:0:0:0:0:1 "GET / HTTP/1.1" 200 
 20:17:24.758 [DEBUG] 0:0:0:0:0:0:0:1 "GET /SQM-logo2.png HTTP/1.1" 200 
 21:53:24.014 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/cgi-test.bat HTTP/1.1" 200 
+22:17:04.312 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:21:13.364 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:25:34.442 [DEBUG] 0:0:0:0:0:0:0:1 "/test.php" 200 
+22:25:53.596 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:29:55.832 [DEBUG] 0:0:0:0:0:0:0:1 "/test.php" 200 
+22:32:50.297 [DEBUG] 0:0:0:0:0:0:0:1 "/test.php" 200 
+22:33:03.177 [DEBUG] 0:0:0:0:0:0:0:1 "/test.php" 200 
+22:34:55.792 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:34:58.685 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:35:00.908 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:35:39.838 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:35:54.074 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:42:43.266 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:43:08.737 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:43:16.131 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:43:23.690 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:43:36.488 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/test2.php HTTP/1.1" 404 
+22:43:55.195 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:44:11.970 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:45:10.616 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:45:43.621 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:46:06.505 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:46:18.748 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:48:51.034 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:51:06.052 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:51:40.256 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:54:42.009 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:56:32.279 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:56:35.554 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:56:37.329 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:57:22.814 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:57:42.829 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:57:46.158 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:57:52.478 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:57:55.083 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:57:56.913 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:06.304 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/ HTTP/1.1" 200 
+22:58:06.657 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:58:06.663 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:58:08.698 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:11.436 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:12.082 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:12.447 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:12.836 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:21.929 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:23.983 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:58:29.803 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:58:48.287 [DEBUG] 0:0:0:0:0:0:0:1 "GET /cgi-bin/ HTTP/1.1" 200 
+22:58:48.917 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:58:48.954 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:58:56.643 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:59:07.610 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:59:09.633 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:59:10.474 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:59:12.888 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:59:17.041 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:59:17.374 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:17.387 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:25.298 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:25.351 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:27.065 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+22:59:32.445 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:59:32.696 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:32.720 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:44.199 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+22:59:44.541 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:59:44.624 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:00:10.994 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:00:11.051 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:00:12.213 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:00:12.626 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:00:12.707 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:02:31.554 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:02:41.404 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+23:08:03.455 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:08:03.911 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:08:03.975 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:08:27.667 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:08:28.112 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:08:28.147 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:09:25.455 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:09:34.769 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+23:12:16.240 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:22.066 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:24.791 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:27.283 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:29.913 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:31.225 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:33.230 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:34.379 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:35.831 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:12:47.386 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+23:13:03.683 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:13:17.388 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+23:13:23.476 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:13:37.389 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+23:13:59.207 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:14:17.391 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+23:14:18.522 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+23:14:37.393 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 

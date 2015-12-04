@@ -1,7 +1,5 @@
 package g53sqm.jibble;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 import java.util.Collection;
 
