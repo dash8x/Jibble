@@ -14,14 +14,14 @@ import org.junit.Test;
 public class WebServerConfigTest {
 
 	//parameters
-	private Properties props1;
-	private Properties props2;
+	private static Properties props1;
+	private static Properties props2;
 			
 	@BeforeClass
-	protected void setUp() throws URISyntaxException, IOException {
-		String file1 = Paths.get(getClass().getResource("/test-conf1.conf").toURI()).toString();
+	public static void setUp() throws URISyntaxException, IOException {
+		String file1 = Paths.get(WebServerConfigTest.class.getResource("/test-conf1.conf").toURI()).toString();
 		props1 = WebServerConfig.readConfigFile(file1);
-		String file2 = Paths.get(getClass().getResource("/test-conf2.conf").toURI()).toString();
+		String file2 = Paths.get(WebServerConfigTest.class.getResource("/test-conf2.conf").toURI()).toString();
 		props2 = WebServerConfig.readConfigFile(file2);
 	}
 	
