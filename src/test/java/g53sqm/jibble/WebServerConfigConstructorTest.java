@@ -26,10 +26,7 @@ public class WebServerConfigConstructorTest {
 	private boolean enableConsoleLogging;
 	private String expectedMessage;
 	private String actualMessage;
-	
-	@Rule
-	public final static SystemOutRule systemOutRule = new SystemOutRule().enableLog();
-	
+		
 	/**
 	 * Constructor
 	 */
@@ -47,7 +44,10 @@ public class WebServerConfigConstructorTest {
 	}
 	
 	@Parameterized.Parameters
-	public static Collection primeNumbers() throws URISyntaxException {		
+	public static Collection primeNumbers() throws URISyntaxException {	
+		
+		SystemOutRule systemOutRule = new SystemOutRule().enableLog();
+		
 		String file1 = Paths.get(WebServerConfigConstructorTest.class.getResource("/test-conf3.conf").toURI()).toString();
 		String file2 = Paths.get(WebServerConfigConstructorTest.class.getResource("/test-conf1.conf").toURI()).toString();
 		
