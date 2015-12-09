@@ -87,12 +87,12 @@ public class RequestThreadProcessRequestTest {
 	public void testGETCgi() throws IOException {
 		assertEquals("HTTP/1.0 200 OK\r\n\r\n" +
                 "<!DOCTYPE html>\r\n" +
-                "<html>Hello World</h1></html>", request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+                "<html>Hello World</h1></html>", request_handler.processRequest("GET", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
 	}
 	
 	@Test
 	public void testHEADCgi() throws IOException {
-		assertEquals("HTTP/1.0 200 OK\r\n", request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+		assertEquals("HTTP/1.0 200 OK\r\n\r\n", request_handler.processRequest("HEAD", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
 	}
 	
 	@Test
@@ -103,6 +103,27 @@ public class RequestThreadProcessRequestTest {
                 "\r\n", request_handler.processRequest("HEAD", "/test_folder", null, "", ""));			
 	}
 	
+	@Test
+	public void testServerSideIncludes() throws IOException {
+		File file = new File("./webfiles/includes.shtml");
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "Content-Length: " + file.length() + "\r\n" +
+                "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
+                "\r\n" +
+				"<!DOCTYPE html>\r\n" +
+				"<html>\r\n" +
+				"<head>\r\n" +
+				"<title>Testing Includes</title>\r\n" +
+				"</head>\r\n" +
+				"<body>\r\n" +
+				"<p>Includes Work!</p>\r\n" +
+				"</body>\r\n" +
+				"</html>\r\n", request_handler.processRequest("GET", "/includes.shtml", null, "", ""));	
+	}
 	@Test
 	public void test404() throws IOException {		
 		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 

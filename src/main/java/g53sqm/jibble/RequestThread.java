@@ -235,7 +235,10 @@ public class RequestThread implements Runnable {
 
             if (WebServerConfig.SSI_EXTENSIONS.contains(extension)) {
                 reader.close();
-                ServerSideIncludeEngine.deliverDocument(out, file);
+                String includes = "";
+                includes = ServerSideIncludeEngine.deliverDocument(includes, file);
+                out.write(includes.getBytes());
+                out.flush();
                 _socket.close();
                 return;
             }
@@ -364,7 +367,7 @@ public class RequestThread implements Runnable {
                 output = "HTTP/1.0 " + request_code + "\r\n";
                 if ( request.equals("HEAD") ) {
                 	logger.debug("{} \"{}\" {}", ip, path, response_code);
-                	return output;
+                	return output += "\r\n";
                 }
                 output = ServerSideScriptEngine.execute(output, headers, file, path);                
                 logger.debug("{} \"{}\" {}", ip, path, response_code);
@@ -383,7 +386,44 @@ public class RequestThread implements Runnable {
             return output;
         }
         
-    	return "";
+        response_code = request.equals("POST") ? 201 : 200;        	
+        String request_code = request.equals("POST") ? "201 Created" : "200 OK";
+        logger.debug("{} \"{}\" {}", ip, request, response_code);
+        String contentType = (String)WebServerConfig.MIME_TYPES.get(extension);
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+        output = "HTTP/1.0 "+request_code+"\r\n" + 
+                   "Date: " + new Date().toString() + "\r\n" +
+                   "Server: JibbleWebServer/1.0\r\n" +
+                   "Content-Type: " + contentType + "\r\n" +
+                   "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                   "Content-Length: " + file.length() + "\r\n" +
+                   "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
+                   "\r\n";
+        
+        if (request.equals("HEAD")) {
+        	return output;
+        }
+
+        BufferedInputStream reader = new BufferedInputStream(new FileInputStream(file));
+        
+        if (WebServerConfig.SSI_EXTENSIONS.contains(extension)) {
+            reader.close();
+            output = ServerSideIncludeEngine.deliverDocument(output, file);            
+            return output;
+        }
+
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = reader.read(buffer, 0, 4096)) != -1) {
+        	for ( int i = 0; i < bytesRead; i++ ) {
+            	output += (char) buffer[i];
+            }
+        }
+        reader.close();
+        
+    	return output;
     }
     
     /**

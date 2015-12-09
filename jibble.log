@@ -391,3 +391,19 @@
 23:29:44.234 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
 23:29:44.598 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
 23:29:44.644 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:37:00.644 [DEBUG] 0:0:0:0:0:0:0:1 "GET /includes.shtml HTTP/1.1" 200 
+00:37:00.996 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:37:01.062 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:40:35.970 [DEBUG] 0:0:0:0:0:0:0:1 "GET /includes.shtml HTTP/1.1" 200 
+00:40:36.329 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:40:36.366 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:40:39.553 [DEBUG] 0:0:0:0:0:0:0:1 "GET /includes.shtml HTTP/1.1" 200 
+00:40:39.924 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:40:39.962 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:40:42.378 [DEBUG] 0:0:0:0:0:0:0:1 "GET /includes.shtml HTTP/1.1" 200 
+00:40:42.653 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:40:42.836 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:41:00.002 [DEBUG] 0:0:0:0:0:0:0:1 "GET /includes.shtml HTTP/1.1" 200 
+00:41:00.354 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:41:00.380 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+00:41:04.653 [DEBUG] 0:0:0:0:0:0:0:1 "GET /includes.shtml HTTP/1.1" 200 

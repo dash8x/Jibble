@@ -34,26 +34,25 @@ public class ServerSideIncludeEngine {
     }
     
     // Deliver the fully processed SSI page to the client
-    public static void deliverDocument(BufferedOutputStream out, File file) throws IOException {
+    public static String deliverDocument(String out, File file) throws IOException {
         HashSet <File> visited = new HashSet <File> ();  // Added File generic for safe conversion - TJB
-        parse(out, visited, file);
-        out.flush();        
+        return parse(out, visited, file);       
     }
     
     
     // Oooh scary recursion
-    private static void parse(BufferedOutputStream out, HashSet <File> visited, File file) throws IOException {
+    private static String parse(String out, HashSet <File> visited, File file) throws IOException {
     
     	// Added File generic to HashSet for safe conversion - TJB
     	
         if (!file.exists() || file.isDirectory()) {
-            out.write(("[SSI include not found: " + file.getCanonicalPath() + "]").getBytes());
-            return;
+            out += "[SSI include not found: " + file.getCanonicalPath() + "]";
+            return out;
         }
         
         if (visited.contains(file)) {
-            out.write(("[SSI circular inclusion rejected: " + file.getCanonicalPath() + "]").getBytes());
-            return;
+            out += "[SSI circular inclusion rejected: " + file.getCanonicalPath() + "]";
+            return out;
         }
 
         
@@ -72,18 +71,18 @@ public class ServerSideIncludeEngine {
                 int endIndex;
                 while ((startIndex = line.indexOf("<!--#include file=\"")) >= 0) {
                     if ((endIndex = line.indexOf("\" -->", startIndex)) > startIndex) {
-                        out.write(line.substring(0, startIndex).getBytes());
+                        out += line.substring(0, startIndex);
                         String filename = line.substring(startIndex + 19, endIndex);
-                        parse(out, visited, new File(file.getParentFile(), filename));
+                        out = parse(out, visited, new File(file.getParentFile(), filename));
                         line = line.substring(endIndex + 5, line.length());
                     }
                     else {
-                        out.write(line.substring(0, 19).getBytes());
+                        out += line.substring(0, 19);
                         line = line.substring(19, line.length());
                     }
                 }
-                out.write(line.getBytes());
-                out.write(WebServerConfig.LINE_SEPARATOR);
+                out += line;
+                out += WebServerConfig.LINE_SEPARATOR_STRING;
             }
         }
         else {
@@ -92,12 +91,15 @@ public class ServerSideIncludeEngine {
             byte[] buffer = new byte[4096];
             int bytesRead;
             while ((bytesRead = reader.read(buffer, 0, 4096)) != -1) {
-                out.write(buffer, 0, bytesRead);
+            	for ( int i = 0; i < bytesRead; i++ ) {
+                	out += (char) buffer[i];
+                } 
             }
         }
         
         visited.remove(file);
         
+        return out;
     }
     
 }

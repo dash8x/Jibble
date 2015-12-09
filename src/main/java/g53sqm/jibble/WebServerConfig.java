@@ -160,7 +160,8 @@ public class WebServerConfig {
     
     public static final String[] DEFAULT_FILES = new String[] {"index.html", "index.htm", "index.shtml", "index.shtm", "index.stm", "index.sht"};
     
-    public static final byte[] LINE_SEPARATOR = "\r\n".getBytes();
+    public static final String LINE_SEPARATOR_STRING = "\r\n";
+    public static final byte[] LINE_SEPARATOR = LINE_SEPARATOR_STRING.getBytes();    
     
     // Added <String> generic to HashSet and HashMap to ensure safe type conversion - TJB
     public static final HashSet <String> SSI_EXTENSIONS = new HashSet <String>();

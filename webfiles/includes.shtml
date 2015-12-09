@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Testing Includes</title>
+</head>
+<body>
+<!--#include file="cgi-bin/included.shtm" -->
+</body>
+</html>
