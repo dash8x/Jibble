@@ -16,17 +16,28 @@ documentation</a><br>
   </li>
 </ul>
 
-	<form method="POST" action="cgi-bin/cgi-test.bat">
-		<label for="name">Name:</label>
-		<input type="text" name="name" />
+	<form method="POST" action="cgi-bin/test.php">
+		<p>
+			<label for="name">Name:</label>
+			<input type="text" name="name" />
+		</p>			
 		
-		<label for="address">Address:</label>
-		<input type="text" name="address" />
 		
-		<label for="options">Options:</label>
-		<input type="checkbox" name="options[]" value="1" /> Option 1</br>
-		<input type="checkbox" name="options[]" value="2" /> Option 2</br>
-		<input type="checkbox" name="options[]" value="3" /> Option 3</br>
+		<p>
+			<label for="address">Address:</label>
+			<input type="text" name="address" />
+		</p>			
+		
+		<p>
+			<label for="options">Options:</label></br>
+			<input type="checkbox" name="options[]" value="1" /> Option 1</br>
+			<input type="checkbox" name="options[]" value="2" /> Option 2</br>
+			<input type="checkbox" name="options[]" value="3" /> Option 3
+		</p>		
+		
+		<p>
+			<button type="submit">Submit</button>
+		</p>	
 	</form>
 </body>
 </html>

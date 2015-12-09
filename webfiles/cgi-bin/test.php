@@ -12,5 +12,6 @@
 			<li><?php echo "Item $i"; ?></li>
 			<?php endfor; ?>
 		</ul>
+		<?php echo var_dump($_SERVER ); ?>
 	</body>
 </html>
