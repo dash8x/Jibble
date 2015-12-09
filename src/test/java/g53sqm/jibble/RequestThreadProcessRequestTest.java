@@ -136,15 +136,11 @@ public class RequestThreadProcessRequestTest {
                 "Content-Length: " + file.length() + "\r\n" +
                 "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
                 "\r\n" +
-				"<!DOCTYPE html>\r\n" +
-				"<html>\r\n" +
-				"<head>\r\n" +
-				"<title>Test</title>\r\n" +
-				"</head>\r\n" +
-				"<body>\r\n" +
-				"<h1>Hello World</h1>\r\n" +
-				"</body>\r\n" +
-				"</html>\r\n", request_handler.processRequest("GET", "/test.html", null, "", ""));	
+				"<!DOCTYPE html>\n" +
+				"<html>\n" +
+				"<head><title>Test</title></head>\n" +
+				"<body><h1>Hello World</h1></body>\n" +
+				"</html>", request_handler.processRequest("GET", "/test.html", null, "", ""));	
 	}
 	
 	@Test
@@ -158,15 +154,11 @@ public class RequestThreadProcessRequestTest {
                 "Content-Length: " + file.length() + "\r\n" +
                 "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
                 "\r\n" +
-				"<!DOCTYPE html>\r\n" +
-				"<html>\r\n" +
-				"<head>\r\n" +
-				"<title>Test</title>\r\n" +
-				"</head>\r\n" +
-				"<body>\r\n" +
-				"<h1>Hello World</h1>\r\n" +
-				"</body>\r\n" +
-				"</html>\r\n", request_handler.processRequest("POST", "/test.html", null, "", ""));	
+				"<!DOCTYPE html>\n" +
+				"<html>\n" +
+				"<head><title>Test</title></head>\n" +
+				"<body><h1>Hello World</h1></body>\n" +
+				"</html>", request_handler.processRequest("POST", "/test.html", null, "", ""));	
 	}
 	
 	@Test
