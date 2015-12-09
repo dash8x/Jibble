@@ -124,6 +124,64 @@ public class RequestThreadProcessRequestTest {
 				"</body>\r\n" +
 				"</html>\r\n", request_handler.processRequest("GET", "/includes.shtml", null, "", ""));	
 	}
+	
+	@Test
+	public void testGETFile() throws IOException {
+		File file = new File("test.html");
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "Content-Length: " + file.length() + "\r\n" +
+                "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
+                "\r\n" +
+				"<!DOCTYPE html>\r\n" +
+				"<html>\r\n" +
+				"<head>\r\n" +
+				"<title>Test</title>\r\n" +
+				"</head>\r\n" +
+				"<body>\r\n" +
+				"<h1>Hello World</h1>\r\n" +
+				"</body>\r\n" +
+				"</html>\r\n", request_handler.processRequest("GET", "/test.html", null, "", ""));	
+	}
+	
+	@Test
+	public void testPOSTFile() throws IOException {
+		File file = new File("test.html");
+		assertEquals("HTTP/1.0 201 Created\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "Content-Length: " + file.length() + "\r\n" +
+                "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
+                "\r\n" +
+				"<!DOCTYPE html>\r\n" +
+				"<html>\r\n" +
+				"<head>\r\n" +
+				"<title>Test</title>\r\n" +
+				"</head>\r\n" +
+				"<body>\r\n" +
+				"<h1>Hello World</h1>\r\n" +
+				"</body>\r\n" +
+				"</html>\r\n", request_handler.processRequest("POST", "/test.html", null, "", ""));	
+	}
+	
+	@Test
+	public void testHEADFile() throws IOException {
+		File file = new File("test.html");
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "Content-Length: " + file.length() + "\r\n" +
+                "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
+                "\r\n", request_handler.processRequest("HEAD", "/test.html", null, "", ""));	
+	}
+	
 	@Test
 	public void test404() throws IOException {		
 		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
