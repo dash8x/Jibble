@@ -309,7 +309,7 @@ public class RequestThread implements Runnable {
                 }
                 File[] files = file.listFiles();
                 String request_code = request.equals("POST") ? "201 Created" : "200 OK";
-                output = "HTTP/1.0 " + request_code + " \r\n" +
+                output = "HTTP/1.0 " + request_code + "\r\n" +
                            "Content-Type: text/html\r\n" +
                            "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                            "\r\n";
