@@ -20,6 +20,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +63,7 @@ public class RequestThread implements Runnable {
             String method = getRequestMethod(request);
             //get path
             String path = "";
-            if (request != null && ALLOWED_METHODS.contains(method) && (request.endsWith(" HTTP/1.0") || request.endsWith("HTTP/1.1"))) {
+            if (request != null && (request.endsWith(" HTTP/1.0") || request.endsWith("HTTP/1.1"))) {
             	path = getRequestPath(request);
             }
             else {
@@ -114,156 +115,14 @@ public class RequestThread implements Runnable {
             	headers.put("Content", content);
             }            
             
-            // URLDecocer.decode(String) is deprecated - added "UTF-8"  -  TJB
-            File file = new File(_rootDir, URLDecoder.decode(path, "UTF-8"));
-            
-            file = file.getCanonicalFile();
-            
-            if (!file.toString().startsWith(_rootDir.toString())) {
-                // Uh-oh, it looks like some lamer is trying to take a peek
-                // outside of our web root directory.
-            	logger.debug("{} \"{}\" {}", ip, request, 404);
-                out.write(("HTTP/1.0 403 Forbidden\r\n" +
-                           "Content-Type: text/html\r\n" + 
-                           "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
-                           "\r\n" +
-                           "<h1>403 Forbidden</h1><code>" + path  + "</code><p><hr>" +
-                           "<i>" + WebServerConfig.VERSION + "</i>").getBytes());
-                out.flush();
-                _socket.close();
-                return;
-            }
-            
-            if (file.isDirectory()) {
-                // Check to see if there are any index files in the directory.
-                for (int i = 0; i < WebServerConfig.DEFAULT_FILES.length; i++) {
-                    File indexFile = new File(file, WebServerConfig.DEFAULT_FILES[i]);
-                    if (indexFile.exists() && !indexFile.isDirectory()) {
-                        file = indexFile;
-                        break;
-                    }
-                }
-                if (file.isDirectory()) {
-                    // print directory listing
-                	logger.debug("{} \"{}\" {}", ip, request, 200);
-                    if (!path.endsWith("/")) {
-                        path = path + "/";
-                    }
-                    File[] files = file.listFiles();
-                    out.write(("HTTP/1.0 200 OK\r\n" +
-                               "Content-Type: text/html\r\n" +
-                               "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
-                               "\r\n" +
-                               "<h1>Directory Listing</h1>" +
-                               "<h3>" + path + "</h3>" +
-                               "<table border=\"0\" cellspacing=\"8\">" +
-                               "<tr><td><b>Filename</b><br></td><td align=\"right\"><b>Size</b></td><td><b>Last Modified</b></td></tr>" +
-                               "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>").getBytes());
-                    for (int i = 0; i < files.length; i++) {
-                        file = files[i];
-                        if (file.isDirectory()) {
-                            out.write(("<tr><td><b><a href=\"" + path + file.getName() + "/\">" + file.getName() + "/</a></b></td><td></td><td></td></tr>").getBytes());
-                        }
-                        else {
-                            out.write(("<tr><td><a href=\"" + path + file.getName() + "\">" + file.getName() + "</a></td><td align=\"right\">" + file.length() + "</td><td>" + new Date(file.lastModified()).toString() + "</td></tr>").getBytes());
-                        }
-                    }
-                    out.write(("</table><hr>" + 
-                               "<i>" + WebServerConfig.VERSION + "</i>").getBytes());
-                    out.flush();
-                    _socket.close();
-                    return;
-                }
-            }
-            
-            if (!file.exists()) {
-                // The file was not found.
-            	logger.debug("{} \"{}\" {}", ip, request, 404);
-                out.write(("HTTP/1.0 404 File Not Found\r\n" + 
-                           "Content-Type: text/html\r\n" +
-                           "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
-                           "\r\n" +
-                           "<h1>404 File Not Found</h1><code>" + path  + "</code><p><hr>" +
-                           "<i>" + WebServerConfig.VERSION + "</i>").getBytes());
-                out.flush();
-                _socket.close();
-                return;
-            }
-
-            String extension = WebServerConfig.getExtension(file);
-            
-            // Execute any files in any cgi-bin directories under the web root.
-            if (file.getParent().indexOf(_cgiBinDir) >= 0) {
-                try {
-                    out.write("HTTP/1.0 200 OK\r\n".getBytes());
-                    String exec_out = ServerSideScriptEngine.execute("", headers, file, path);
-                    out.write(exec_out.getBytes());
-                    out.flush();
-                    logger.debug("{} \"{}\" {}", ip, path, 200);
-                }
-                catch (Throwable t) {
-                    // Internal server error!
-                	logger.error("{} \"{}\" {}", ip, request, 500);
-                    out.write(("Content-Type: text/html\r\n\r\n" +
-                               "<h1>Internal Server Error</h1><code>" + path  + "</code><hr>Your script produced the following error: -<p><pre>" +
-                               t.toString() + 
-                               "</pre><hr><i>" + WebServerConfig.VERSION + "</i>").getBytes());
-                    out.flush();
-                    _socket.close();
-                    return;
-                }
-                out.flush();
-                _socket.close();
-                return;
-            }
-
-            reader = new BufferedInputStream(new FileInputStream(file));
-            
-            logger.debug("{} \"{}\" {}", ip, request, 200);
-            String contentType = (String)WebServerConfig.MIME_TYPES.get(extension);
-            if (contentType == null) {
-                contentType = "application/octet-stream";
-            }
-            out.write(("HTTP/1.0 200 OK\r\n" + 
-                       "Date: " + new Date().toString() + "\r\n" +
-                       "Server: JibbleWebServer/1.0\r\n" +
-                       "Content-Type: " + contentType + "\r\n" +
-                       "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
-                       "Content-Length: " + file.length() + "\r\n" +
-                       "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
-                       "\r\n").getBytes());
-
-            if (WebServerConfig.SSI_EXTENSIONS.contains(extension)) {
-                reader.close();
-                String includes = "";
-                includes = ServerSideIncludeEngine.deliverDocument(includes, file);
-                out.write(includes.getBytes());
-                out.flush();
-                _socket.close();
-                return;
-            }
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = reader.read(buffer, 0, 4096)) != -1) {
-                out.write(buffer, 0, bytesRead);
-                bytesSent += bytesRead;
-            }
-            out.flush();
-            reader.close();
+            //process the request
+            out.write(processRequest(method, path, headers, ip));
+            out.flush();            
             _socket.close();
             
         }
         catch (IOException e) {
-        	logger.error("{} \"{}\" {}", ip, request);
-            if (reader != null) {
-                try {
-                    reader.close();
-                }
-                catch (Exception anye) {
-                    // Do nothing.
-                }
-            }
+        	logger.error("{} \"{}\" {}", ip, request);            
         }
     }
     
@@ -271,7 +130,7 @@ public class RequestThread implements Runnable {
      * Processes a request
      * @throws IOException 
      */
-    public String processRequest(String request, String path, HashMap <String, String> headers, String content, String ip) throws IOException {
+    public byte[] processRequest(String request, String path, HashMap <String, String> headers, String ip) throws IOException {
     	
     	//output string
     	String output = "";
@@ -295,10 +154,10 @@ public class RequestThread implements Runnable {
                      "Server: JibbleWebServer/1.0\r\n" +   
                      "Content-Length: 0\r\n" +
                      "\r\n";   
-            return output;
+            return output.getBytes();
         }
         
-        //method not allowrd
+        //method not allowed
         if (file.exists() && !ALLOWED_METHODS.contains(request)) {
             // The file was not found.
         	response_code = 405;
@@ -309,7 +168,7 @@ public class RequestThread implements Runnable {
                        "\r\n" +
                        "<h1>405 Method Not Allowed</h1><code>" + path  + "</code><p><hr>" +
                        "<i>" + WebServerConfig.VERSION + "</i>";
-            return output;
+            return output.getBytes();
         }               
         
         //forbidden
@@ -324,7 +183,7 @@ public class RequestThread implements Runnable {
                        "\r\n" +
                        "<h1>403 Forbidden</h1><code>" + path  + "</code><p><hr>" +
                        "<i>" + WebServerConfig.VERSION + "</i>";
-            return output;
+            return output.getBytes();
         }
         
         //directory
@@ -351,7 +210,7 @@ public class RequestThread implements Runnable {
                            "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                            "\r\n";
                 if (request.equals("HEAD")) {
-                	return output;
+                	return output.getBytes();
                 }
                 output += "<h1>Directory Listing</h1>" +
                            "<h3>" + path + "</h3>" +
@@ -369,7 +228,7 @@ public class RequestThread implements Runnable {
                 }
                 output += "</table><hr>" + 
                            "<i>" + WebServerConfig.VERSION + "</i>";
-                return output;
+                return output.getBytes();
             }
         }
     	
@@ -384,7 +243,7 @@ public class RequestThread implements Runnable {
                        "\r\n" +
                        "<h1>404 File Not Found</h1><code>" + path  + "</code><p><hr>" +
                        "<i>" + WebServerConfig.VERSION + "</i>";
-            return output;
+            return output.getBytes();
         }
         
         String extension = WebServerConfig.getExtension(file);
@@ -397,10 +256,11 @@ public class RequestThread implements Runnable {
                 output = "HTTP/1.0 " + request_code + "\r\n";
                 if ( request.equals("HEAD") ) {
                 	logger.debug("{} \"{}\" {}", ip, path, response_code);
-                	return output += "\r\n";
-                }
-                output = ServerSideScriptEngine.execute(output, headers, file, path);                
+                	output += "\r\n";
+                	return output.getBytes();
+                }                              
                 logger.debug("{} \"{}\" {}", ip, path, response_code);
+                return ServerSideScriptEngine.execute(output, headers, file, path); 
             }
             catch (Throwable t) {
                 // Internal server error!
@@ -411,9 +271,8 @@ public class RequestThread implements Runnable {
                            "<h1>Internal Server Error</h1><code>" + path  + "</code><hr>Your script produced the following error: -<p><pre>" +
                            t.toString() + 
                            "</pre><hr><i>" + WebServerConfig.VERSION + "</i>";                
-                return output;
+                return output.getBytes();
             }
-            return output;
         }
         
         response_code = request.equals("POST") ? 201 : 200;        	
@@ -433,7 +292,7 @@ public class RequestThread implements Runnable {
                    "\r\n";
         
         if (request.equals("HEAD")) {
-        	return output;
+        	return output.getBytes();
         }
 
         BufferedInputStream reader = new BufferedInputStream(new FileInputStream(file));
@@ -441,19 +300,17 @@ public class RequestThread implements Runnable {
         if (WebServerConfig.SSI_EXTENSIONS.contains(extension)) {
             reader.close();
             output = ServerSideIncludeEngine.deliverDocument(output, file);            
-            return output;
+            return output.getBytes();
         }
 
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = reader.read(buffer, 0, 4096)) != -1) {
-        	for ( int i = 0; i < bytesRead; i++ ) {
-            	output += (char) buffer[i];
-            }
+        byte[] buffer = IOUtils.toByteArray(reader);
+        try {
+        	reader.close();
+        } catch (Exception e) {
+        	
         }
-        reader.close();
         
-    	return output;
+    	return buffer;
     }
     
     /**

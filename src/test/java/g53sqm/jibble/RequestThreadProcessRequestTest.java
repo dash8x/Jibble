@@ -25,38 +25,38 @@ public class RequestThreadProcessRequestTest {
 		
 	@Test
 	public void testNotAllowed() throws IOException {		
-		assertEquals("HTTP/1.0 405 Method Not Allowed\r\n" +
+		assertArrayEquals(("HTTP/1.0 405 Method Not Allowed\r\n" +
                 "Content-Type: text/html\r\n" + 
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
                 "<h1>405 Method Not Allowed</h1><code>/test.html</code><p><hr>" +
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/test.html", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("PUT", "/test.html", null, ""));			
 	}
 	
 	@Test
 	public void testNotAllowedDirectory() throws IOException {		
-		assertEquals("HTTP/1.0 405 Method Not Allowed\r\n" +
+		assertArrayEquals(("HTTP/1.0 405 Method Not Allowed\r\n" +
                 "Content-Type: text/html\r\n" + 
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
                 "<h1>405 Method Not Allowed</h1><code>/test_folder</code><p><hr>" +
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/test_folder", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("PUT", "/test_folder", null, ""));			
 	}
 	
 	@Test
 	public void testForbidden() throws IOException {		
-		assertEquals("HTTP/1.0 403 Forbidden\r\n" +
+		assertArrayEquals(("HTTP/1.0 403 Forbidden\r\n" +
                 "Content-Type: text/html\r\n" + 
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
                 "<h1>403 Forbidden</h1><code>../src</code><p><hr>" +
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("GET", "../src", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("GET", "../src", null, ""));			
 	}
 	
 	@Test
 	public void testGETDirectory() throws IOException {		
 		File file = new File("./webfiles/test_folder/hello.txt");
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
@@ -67,13 +67,13 @@ public class RequestThreadProcessRequestTest {
                 "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>" +
                 "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>"+new Date(file.lastModified()).toString()+"</td></tr>" +
                 "</table><hr>" + 
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("GET", "/test_folder", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("GET", "/test_folder", null, ""));			
 	}
 	
 	@Test
 	public void testPOSTDirectory() throws IOException {	
 		File file = new File("./webfiles/test_folder/hello.txt");
-		assertEquals("HTTP/1.0 201 Created\r\n" +
+		assertArrayEquals(("HTTP/1.0 201 Created\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
@@ -84,49 +84,49 @@ public class RequestThreadProcessRequestTest {
                 "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>" +
                 "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>" + new Date(file.lastModified()).toString() + "</td></tr>" +
                 "</table><hr>" + 
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("POST", "/test_folder", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("POST", "/test_folder", null, ""));			
 	}
 	
 	@Test
 	public void testCgi500() throws IOException {
-		assertEquals("HTTP/1.0 500 Internal Server Error\r\n" +
+		assertArrayEquals(("HTTP/1.0 500 Internal Server Error\r\n" +
                 "Content-Type: text/html\r\n\r\n" +
                 "<h1>Internal Server Error</h1><code>/cgi-bin/cgi-test.bat</code><hr>Your script produced the following error: -<p><pre>" +  
                 "java.lang.NullPointerException" +
-                "</pre><hr><i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("POST", "/cgi-bin/cgi-test.bat", null, "", ""));			
+                "</pre><hr><i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("POST", "/cgi-bin/cgi-test.bat", null, ""));			
 	}
 	
 	@Test
 	public void testPOSTCgi() throws IOException {
-		assertEquals("HTTP/1.0 201 Created\r\n\r\n" +
+		assertArrayEquals(("HTTP/1.0 201 Created\r\n\r\n" +
                 "<!DOCTYPE html>\r\n" +
-                "<html>Hello World</h1></html>", request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+                "<html>Hello World</h1></html>").getBytes(), request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), ""));			
 	}
 	
 	@Test
 	public void testGETCgi() throws IOException {
-		assertEquals("HTTP/1.0 200 OK\r\n\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n\r\n" +
                 "<!DOCTYPE html>\r\n" +
-                "<html>Hello World</h1></html>", request_handler.processRequest("GET", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+                "<html>Hello World</h1></html>").getBytes(), request_handler.processRequest("GET", "/cgi-bin/hello.php", new HashMap<String, String>(), ""));			
 	}
 	
 	@Test
 	public void testHEADCgi() throws IOException {
-		assertEquals("HTTP/1.0 200 OK\r\n\r\n", request_handler.processRequest("HEAD", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n\r\n").getBytes(), request_handler.processRequest("HEAD", "/cgi-bin/hello.php", new HashMap<String, String>(), ""));			
 	}
 	
 	@Test
 	public void testHEADDirectory() throws IOException {		
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
-                "\r\n", request_handler.processRequest("HEAD", "/test_folder", null, "", ""));			
+                "\r\n").getBytes(), request_handler.processRequest("HEAD", "/test_folder", null, ""));			
 	}
 	
 	@Test
 	public void testServerSideIncludes() throws IOException {
 		File file = new File("./webfiles/includes.shtml");
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Type: text/html\r\n" +
@@ -142,13 +142,13 @@ public class RequestThreadProcessRequestTest {
 				"<body>\r\n" +
 				"<p>Includes Work!</p>\r\n\r\n" +
 				"</body>\r\n" +
-				"</html>\r\n", request_handler.processRequest("GET", "/includes.shtml", null, "", ""));	
+				"</html>\r\n").getBytes(), request_handler.processRequest("GET", "/includes.shtml", null, ""));	
 	}
 	
 	@Test
 	public void testGETFile() throws IOException {
 		File file = new File("./webfiles/test.html");
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Type: text/html\r\n" +
@@ -160,13 +160,13 @@ public class RequestThreadProcessRequestTest {
 				"<html>\n" +
 				"<head><title>Test</title></head>\n" +
 				"<body><h1>Hello World</h1></body>\n" +
-				"</html>", request_handler.processRequest("GET", "/test.html", null, "", ""));	
+				"</html>").getBytes(), request_handler.processRequest("GET", "/test.html", null, ""));	
 	}
 	
 	@Test
 	public void testPOSTFile() throws IOException {
 		File file = new File("./webfiles/test.html");
-		assertEquals("HTTP/1.0 201 Created\r\n" +
+		assertArrayEquals(("HTTP/1.0 201 Created\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Type: text/html\r\n" +
@@ -178,80 +178,80 @@ public class RequestThreadProcessRequestTest {
 				"<html>\n" +
 				"<head><title>Test</title></head>\n" +
 				"<body><h1>Hello World</h1></body>\n" +
-				"</html>", request_handler.processRequest("POST", "/test.html", null, "", ""));	
+				"</html>").getBytes(), request_handler.processRequest("POST", "/test.html", null, ""));	
 	}
 	
 	@Test
 	public void testHEADFile() throws IOException {
 		File file = new File("./webfiles/test.html");
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "Content-Length: " + file.length() + "\r\n" +
                 "Last-modified: " + new Date(file.lastModified()).toString() + "\r\n" +
-                "\r\n", request_handler.processRequest("HEAD", "/test.html", null, "", ""));	
+                "\r\n").getBytes(), request_handler.processRequest("HEAD", "/test.html", null, ""));	
 	}
 	
 	@Test
 	public void testOPTIONSMissing() throws IOException {
-		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
+		assertArrayEquals(("HTTP/1.0 404 File Not Found\r\n" + 
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
                 "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("OPTIONS", "/missing_dir", null, "", ""));	
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("OPTIONS", "/missing_dir", null, ""));	
 	}
 	
 	@Test
 	public void testOPTIONSFile() throws IOException {
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
 				"Allow: GET,POST,OPTIONS,HEAD\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Length: 0\r\n" +
-                "\r\n", request_handler.processRequest("OPTIONS", "/test.html", null, "", ""));	
+                "\r\n").getBytes(), request_handler.processRequest("OPTIONS", "/test.html", null, ""));	
 	}
 	
 	@Test
 	public void testOPTIONSAll() throws IOException {
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
 				"Allow: GET,POST,OPTIONS,HEAD\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Length: 0\r\n" +
-                "\r\n", request_handler.processRequest("OPTIONS", "*", null, "", ""));	
+                "\r\n").getBytes(), request_handler.processRequest("OPTIONS", "*", null, ""));	
 	}
 	
 	@Test
 	public void testOPTIONSDirectory() throws IOException {
-		assertEquals("HTTP/1.0 200 OK\r\n" +
+		assertArrayEquals(("HTTP/1.0 200 OK\r\n" +
 				"Allow: GET,POST,OPTIONS,HEAD\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
                 "Content-Length: 0\r\n" +
-                "\r\n", request_handler.processRequest("OPTIONS", "/test_folder", null, "", ""));	
+                "\r\n").getBytes(), request_handler.processRequest("OPTIONS", "/test_folder", null, ""));	
 	}
 	
 	@Test
 	public void test404() throws IOException {		
-		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
+		assertArrayEquals(("HTTP/1.0 404 File Not Found\r\n" + 
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
                 "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("HEAD", "/missing_dir", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("HEAD", "/missing_dir", null, ""));			
 	}
 	
 	@Test
 	public void testNotAllowedMissing() throws IOException {		
-		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
+		assertArrayEquals(("HTTP/1.0 404 File Not Found\r\n" + 
                 "Content-Type: text/html\r\n" +
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
                 "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
-                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/missing_dir", null, "", ""));			
+                "<i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("PUT", "/missing_dir", null, ""));			
 	}
 	
 }

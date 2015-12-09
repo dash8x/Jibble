@@ -20,6 +20,8 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
+import org.apache.commons.io.IOUtils;
+
 /**
  * Provides limited support for running server side scripts.
  * The HashMap of server variables are sent to the process
@@ -34,7 +36,7 @@ public class ServerSideScriptEngine {
     // This could be a lot better.  Consider server side scripting a beta feature
     // for now.
     
-    public static String execute(String out, HashMap serverVars, File file, String path) throws Throwable {
+    public static byte[] execute(String out, HashMap serverVars, File file, String path) throws Throwable {
         
         // Place server variables into a String array.
         String[] envp = new String[serverVars.size()];
@@ -61,16 +63,23 @@ public class ServerSideScriptEngine {
         
         // Send the process output to the connecting client.
         InputStream in = process.getInputStream();
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = in.read(buffer, 0, 4096)) != -1) {        	
-            for ( int i = 0; i < bytesRead; i++ ) {
-            	out += (char) buffer[i];
-            }            
+        byte[] cgi = IOUtils.toByteArray(in);
+        byte[] header = out.getBytes();
+        byte[] output = new byte[header.length + cgi.length];
+        int x = 0;
+        for ( int i = 0; i < header.length; i++) {
+        	output[x] = header[i];
+        	x++;
         }
+        
+        for ( int i = 0; i < cgi.length; i++) {
+        	output[x] = cgi[i];
+        	x++;
+        }
+        		
         in.close();
         
-        return out;
+        return output;
     }
     
 }
