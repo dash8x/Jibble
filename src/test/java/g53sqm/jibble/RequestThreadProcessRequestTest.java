@@ -47,4 +47,28 @@ public class RequestThreadProcessRequestTest {
                 "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("GET", "/test_folder", null, "", ""));			
 	}
 	
+	@Test
+	public void testPOSTDirectory() throws IOException {		
+		assertEquals("HTTP/1.0 201 Created\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n" +
+                "<h1>Directory Listing</h1>" +
+                "<h3>/test_folder/</h3>" +
+                "<table border=\"0\" cellspacing=\"8\">" +
+                "<tr><td><b>Filename</b><br></td><td align=\"right\"><b>Size</b></td><td><b>Last Modified</b></td></tr>" +
+                "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>" +
+                "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>Wed Dec 09 22:12:49 SGT 2015</td></tr>" +
+                "</table><hr>" + 
+                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("POST", "/test_folder", null, "", ""));			
+	}
+	
+	@Test
+	public void testHEADDirectory() throws IOException {		
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n", request_handler.processRequest("HEAD", "/test_folder", null, "", ""));			
+	}
+	
 }
