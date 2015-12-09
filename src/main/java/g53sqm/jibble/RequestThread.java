@@ -282,6 +282,20 @@ public class RequestThread implements Runnable {
         
         file = file.getCanonicalFile();
         
+        //method not allowrd
+        if (file.exists() && !ALLOWED_METHODS.contains(request)) {
+            // The file was not found.
+        	response_code = 405;
+        	logger.debug("{} \"{}\" {}", ip, request, response_code);
+            output = "HTTP/1.0 405 Method Not Allowed\r\n" + 
+                       "Content-Type: text/html\r\n" +
+                       "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                       "\r\n" +
+                       "<h1>405 Method Not Allowed</h1><code>" + path  + "</code><p><hr>" +
+                       "<i>" + WebServerConfig.VERSION + "</i>";
+            return output;
+        }
+        
         //forbidden
         if (!file.toString().startsWith(_rootDir.toString())) {
             // Uh-oh, it looks like some lamer is trying to take a peek

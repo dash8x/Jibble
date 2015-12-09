@@ -22,7 +22,17 @@ public class RequestThreadProcessRequestTest {
 	public static void setUp() throws URISyntaxException, IOException {
 		request_handler = new RequestThread(new Socket(), new File("./webfiles").getCanonicalFile(), "cgi-bin");
 	}
-			
+		
+	@Test
+	public void testNotAllowed() throws IOException {		
+		assertEquals("HTTP/1.0 405 Method Not Allowed\r\n" +
+                "Content-Type: text/html\r\n" + 
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n" +
+                "<h1>405 Method Not Allowed</h1><code>../src</code><p><hr>" +
+                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/test.html", null, "", ""));			
+	}
+	
 	@Test
 	public void testForbidden() throws IOException {		
 		assertEquals("HTTP/1.0 403 Forbidden\r\n" +
