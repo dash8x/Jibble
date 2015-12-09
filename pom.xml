@@ -15,14 +15,27 @@
       </resource>
     </resources>
     <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
-      </plugin>
+		<plugin>
+	        <artifactId>maven-compiler-plugin</artifactId>
+	        <version>3.3</version>
+	        <configuration>
+	          <source>1.7</source>
+	          <target>1.7</target>
+	        </configuration>
+	    </plugin>
+      	<plugin>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <configuration>
+		  	<descriptorRefs>
+		    	<descriptorRef>jar-with-dependencies</descriptorRef>
+		    </descriptorRefs>
+		    <archive>
+		        <manifest>
+		        	<mainClass>g53sqm.jibble.WebServerMain</mainClass>
+		    	</manifest>
+		    </archive>
+      		</configuration>
+    	</plugin>
     </plugins>
   </build>
   <ciManagement>
