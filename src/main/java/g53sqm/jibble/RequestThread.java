@@ -308,9 +308,21 @@ public class RequestThread implements Runnable {
         	reader.close();
         } catch (Exception e) {
         	
+        }        
+        byte[] header = output.getBytes();
+        byte[] out = new byte[header.length + buffer.length];
+        int x = 0;
+        for ( int i = 0; i < header.length; i++) {
+        	out[x] = header[i];
+        	x++;
         }
         
-    	return buffer;
+        for ( int i = 0; i < buffer.length; i++) {
+        	out[x] = buffer[i];
+        	x++;
+        }
+        
+    	return out;
     }
     
     /**
