@@ -72,35 +72,25 @@ public class RequestThread implements Runnable {
                 return;
             }
             
-            
-            //read the request
-            String request_input = "";            
-            char[] input_buffer = new char[4096];
-            int chars_read = 0;
-            while ((chars_read = in.read(input_buffer, 0, 4096)) != -1) {
-            	//append to requesnt input
-            	for (int i = 0; i < chars_read; i++) {
-            		request_input += input_buffer[i];
-            	}
-            }
-            //add a new line to end of request
-            request_input += "\n";
-            
-          //Read in and store all the headers.
+            //Read in and store all the headers.
 
             // Specify String types of HasMap for safety - TJB
 //          HashMap headers = new HashMap();
             HashMap <String, String> headers = new HashMap<String, String>();
             String line = null;
-            //process the request
             String content = "";
-            Scanner parse_request = new Scanner(request_input);
-			while (parse_request.hasNextLine()) {
-				line = parse_request.nextLine().trim();
-				//get the request content
-				if (line.equals("")) {					
-					while (parse_request.hasNextLine()) { 
-						content += parse_request.nextLine();
+            int content_length = 0;
+			while ((line = in.readLine()) != null) {
+				line = line.trim();
+				if (line.equals("")) {
+					//read content
+					if ( content_length > 0 ) {	
+						char character;
+						int char_read = 0;
+						while (char_read < content_length && ( character = (char) in.read()) != -1) { 
+							content += character;
+							char_read++;
+						}
 					}
 					break;
 				}
@@ -108,11 +98,17 @@ public class RequestThread implements Runnable {
 				if (colonPos > 0) {
 					String key = line.substring(0, colonPos);
 					String value = line.substring(colonPos + 1);
-					headers.put(key, value.trim());
+					headers.put(key, value.trim());					
+					//look for content-length header
+					if ( key.trim().equals("Content-Length") ) {						
+						try {
+							content_length = Integer.parseInt(value.trim());
+						} catch (NumberFormatException e) {}
+					}
 				}
 
 			}
-            
+            			
             //put the content
             if ( !content.equals("") ) {
             	headers.put("Content", content);
