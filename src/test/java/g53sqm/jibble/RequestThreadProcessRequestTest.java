@@ -39,7 +39,7 @@ public class RequestThreadProcessRequestTest {
                 "Content-Type: text/html\r\n" + 
                 "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                 "\r\n" +
-                "<h1>405 Method Not Allowed</h1><code>/test.html</code><p><hr>" +
+                "<h1>405 Method Not Allowed</h1><code>/test_folder</code><p><hr>" +
                 "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/test_folder", null, "", ""));			
 	}
 	
