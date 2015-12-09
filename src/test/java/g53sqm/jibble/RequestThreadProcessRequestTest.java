@@ -127,7 +127,7 @@ public class RequestThreadProcessRequestTest {
 	
 	@Test
 	public void testGETFile() throws IOException {
-		File file = new File("test.html");
+		File file = new File("./webfiles/test.html");
 		assertEquals("HTTP/1.0 200 OK\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
@@ -149,7 +149,7 @@ public class RequestThreadProcessRequestTest {
 	
 	@Test
 	public void testPOSTFile() throws IOException {
-		File file = new File("test.html");
+		File file = new File("./webfiles/test.html");
 		assertEquals("HTTP/1.0 201 Created\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
@@ -171,7 +171,7 @@ public class RequestThreadProcessRequestTest {
 	
 	@Test
 	public void testHEADFile() throws IOException {
-		File file = new File("test.html");
+		File file = new File("./webfiles/test.html");
 		assertEquals("HTTP/1.0 200 OK\r\n" +
 				"Date: " + new Date().toString() + "\r\n" +
                 "Server: JibbleWebServer/1.0\r\n" +
