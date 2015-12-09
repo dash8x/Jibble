@@ -385,3 +385,6 @@
 22:16:15.929 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
 22:16:15.954 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
 22:16:25.462 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 
+22:31:56.164 [DEBUG] 0:0:0:0:0:0:0:1 "GET /test_folder HTTP/1.1" 200 
+22:31:56.444 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:31:56.478 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
