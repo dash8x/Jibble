@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.TimeZone;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class RequestThreadProcessRequestTest {
@@ -96,6 +97,7 @@ public class RequestThreadProcessRequestTest {
                 "</pre><hr><i>" + WebServerConfig.VERSION + "</i>").getBytes(), request_handler.processRequest("POST", "/cgi-bin/cgi-test.bat", null, ""));			
 	}
 	
+	@Ignore
 	@Test
 	public void testPOSTCgi() throws IOException {
 		assertArrayEquals(("HTTP/1.0 201 Created\r\n\r\n" +
@@ -103,6 +105,7 @@ public class RequestThreadProcessRequestTest {
                 "<html>Hello World</h1></html>").getBytes(), request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), ""));			
 	}
 	
+	@Ignore
 	@Test
 	public void testGETCgi() throws IOException {
 		assertArrayEquals(("HTTP/1.0 200 OK\r\n\r\n" +
