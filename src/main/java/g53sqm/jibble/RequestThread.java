@@ -278,9 +278,25 @@ public class RequestThread implements Runnable {
     	int response_code = 0;
     	
     	// URLDecocer.decode(String) is deprecated - added "UTF-8"  -  TJB
-        File file = new File(_rootDir, URLDecoder.decode(path, "UTF-8"));
+        File file = (request.equals("OPTIONS") && path.equals("*")) ? null : new File(_rootDir, URLDecoder.decode(path, "UTF-8"));
         
-        file = file.getCanonicalFile();
+        if ( file != null ) {
+        	file = file.getCanonicalFile();
+        }
+        
+      //options
+        if (request.equals("OPTIONS") && (path.equals("*") || file.exists())) {
+            // The file was not found.
+        	response_code = 200;
+        	logger.debug("{} \"{}\" {}", ip, request, response_code);
+        	 output = "HTTP/1.0 200 OK\r\n" + 
+             		"Allow: GET,POST,OPTIONS,HEAD\r\n" +
+             		"Date: " + new Date().toString() + "\r\n" +
+                     "Server: JibbleWebServer/1.0\r\n" +   
+                     "Content-Length: 0\r\n" +
+                     "\r\n";   
+            return output;
+        }
         
         //method not allowrd
         if (file.exists() && !ALLOWED_METHODS.contains(request)) {
@@ -294,21 +310,7 @@ public class RequestThread implements Runnable {
                        "<h1>405 Method Not Allowed</h1><code>" + path  + "</code><p><hr>" +
                        "<i>" + WebServerConfig.VERSION + "</i>";
             return output;
-        }
-        
-        //options
-        if (request.equals("OPTIONS") && (file.exists() || path.equals("*"))) {
-            // The file was not found.
-        	response_code = 200;
-        	logger.debug("{} \"{}\" {}", ip, request, response_code);
-        	 output = "HTTP/1.0 200 OK\r\n" + 
-             		"Allow: GET,POST,OPTIONS,HEAD\r\n" +
-             		"Date: " + new Date().toString() + "\r\n" +
-                     "Server: JibbleWebServer/1.0\r\n" +   
-                     "Content-Length: 0\r\n" +
-                     "\r\n";   
-            return output;
-        }
+        }               
         
         //forbidden
         if (!file.toString().startsWith(_rootDir.toString())) {
