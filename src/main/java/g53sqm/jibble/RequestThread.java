@@ -362,6 +362,10 @@ public class RequestThread implements Runnable {
             	response_code = request.equals("POST") ? 201 : 200;        	
                 String request_code = request.equals("POST") ? "201 Created" : "200 OK";
                 output = "HTTP/1.0 " + request_code + "\r\n";
+                if ( request.equals("HEAD") ) {
+                	logger.debug("{} \"{}\" {}", ip, path, response_code);
+                	return output;
+                }
                 output = ServerSideScriptEngine.execute(output, headers, file, path);                
                 logger.debug("{} \"{}\" {}", ip, path, response_code);
             }

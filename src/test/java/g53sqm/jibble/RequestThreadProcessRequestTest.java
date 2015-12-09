@@ -84,6 +84,18 @@ public class RequestThreadProcessRequestTest {
 	}
 	
 	@Test
+	public void testGETCgi() throws IOException {
+		assertEquals("HTTP/1.0 200 OK\r\n\r\n" +
+                "<!DOCTYPE html>\r\n" +
+                "<html>Hello World</h1></html>", request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+	}
+	
+	@Test
+	public void testHEADCgi() throws IOException {
+		assertEquals("HTTP/1.0 200 OK\r\n", request_handler.processRequest("POST", "/cgi-bin/hello.php", new HashMap<String, String>(), "", ""));			
+	}
+	
+	@Test
 	public void testHEADDirectory() throws IOException {		
 		assertEquals("HTTP/1.0 200 OK\r\n" +
                 "Content-Type: text/html\r\n" +
