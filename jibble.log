@@ -374,3 +374,6 @@
 19:04:39.543 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
 19:04:39.572 [DEBUG] Content length 0 
 19:04:39.572 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+19:06:29.901 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
+19:06:30.145 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+19:06:30.188 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 

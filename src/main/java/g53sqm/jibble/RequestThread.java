@@ -264,6 +264,36 @@ public class RequestThread implements Runnable {
     }
     
     /**
+     * Processes a request
+     * @throws IOException 
+     */
+    public String processRequest(String request, String path, HashMap <String, String> headers, String content, String ip) throws IOException {
+    	
+    	//output string
+    	String output = "";
+    	
+    	// URLDecocer.decode(String) is deprecated - added "UTF-8"  -  TJB
+        File file = new File(_rootDir, URLDecoder.decode(path, "UTF-8"));
+        
+        file = file.getCanonicalFile();
+        
+        if (!file.toString().startsWith(_rootDir.toString())) {
+            // Uh-oh, it looks like some lamer is trying to take a peek
+            // outside of our web root directory.
+        	logger.debug("{} \"{}\" {}", ip, request, 404);
+        	output = "HTTP/1.0 403 Forbidden\r\n" +
+                       "Content-Type: text/html\r\n" + 
+                       "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                       "\r\n" +
+                       "<h1>403 Forbidden</h1><code>" + path  + "</code><p><hr>" +
+                       "<i>" + WebServerConfig.VERSION + "</i>";
+            return output;
+        }
+    	
+    	return "";
+    }
+    
+    /**
      * Returns the HTTP method from a string
      */
     public static String getRequestMethod(String line) {
