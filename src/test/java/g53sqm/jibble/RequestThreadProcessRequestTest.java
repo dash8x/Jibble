@@ -120,7 +120,7 @@ public class RequestThreadProcessRequestTest {
 				"<title>Testing Includes</title>\r\n" +
 				"</head>\r\n" +
 				"<body>\r\n" +
-				"<p>Includes Work!</p>\r\n" +
+				"<p>Includes Work!</p>\r\n\r\n" +
 				"</body>\r\n" +
 				"</html>\r\n", request_handler.processRequest("GET", "/includes.shtml", null, "", ""));	
 	}
