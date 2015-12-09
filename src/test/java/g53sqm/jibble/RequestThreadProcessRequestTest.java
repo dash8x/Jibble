@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.URISyntaxException;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -42,7 +43,7 @@ public class RequestThreadProcessRequestTest {
                 "<table border=\"0\" cellspacing=\"8\">" +
                 "<tr><td><b>Filename</b><br></td><td align=\"right\"><b>Size</b></td><td><b>Last Modified</b></td></tr>" +
                 "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>" +
-                "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>Wed Dec 09 22:12:49 SGT 2015</td></tr>" +
+                "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>Wed Dec 09 22:12:49 "+TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT)+" 2015</td></tr>" +
                 "</table><hr>" + 
                 "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("GET", "/test_folder", null, "", ""));			
 	}
@@ -58,7 +59,7 @@ public class RequestThreadProcessRequestTest {
                 "<table border=\"0\" cellspacing=\"8\">" +
                 "<tr><td><b>Filename</b><br></td><td align=\"right\"><b>Size</b></td><td><b>Last Modified</b></td></tr>" +
                 "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>" +
-                "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>Wed Dec 09 22:12:49 SGT 2015</td></tr>" +
+                "<tr><td><a href=\"/test_folder/hello.txt\">hello.txt</a></td><td align=\"right\">11</td><td>Wed Dec 09 22:12:49 "+TimeZone.getDefault().getDisplayName(false, TimeZone.SHORT)+" 2015</td></tr>" +
                 "</table><hr>" + 
                 "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("POST", "/test_folder", null, "", ""));			
 	}
