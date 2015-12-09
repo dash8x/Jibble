@@ -277,6 +277,7 @@ public class RequestThread implements Runnable {
         
         file = file.getCanonicalFile();
         
+        //forbidden
         if (!file.toString().startsWith(_rootDir.toString())) {
             // Uh-oh, it looks like some lamer is trying to take a peek
             // outside of our web root directory.
@@ -290,6 +291,7 @@ public class RequestThread implements Runnable {
             return output;
         }
         
+        //directory
         if (file.isDirectory()) {
             // Check to see if there are any index files in the directory.
             for (int i = 0; i < WebServerConfig.DEFAULT_FILES.length; i++) {
@@ -334,6 +336,19 @@ public class RequestThread implements Runnable {
             }
         }
     	
+        //missing
+        if (!file.exists()) {
+            // The file was not found.
+        	logger.debug("{} \"{}\" {}", ip, request, 404);
+            output = "HTTP/1.0 404 File Not Found\r\n" + 
+                       "Content-Type: text/html\r\n" +
+                       "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                       "\r\n" +
+                       "<h1>404 File Not Found</h1><code>" + path  + "</code><p><hr>" +
+                       "<i>" + WebServerConfig.VERSION + "</i>";
+            return output;
+        }
+        
     	return "";
     }
     

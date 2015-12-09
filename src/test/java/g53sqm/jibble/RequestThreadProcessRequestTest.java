@@ -71,4 +71,14 @@ public class RequestThreadProcessRequestTest {
                 "\r\n", request_handler.processRequest("HEAD", "/test_folder", null, "", ""));			
 	}
 	
+	@Test
+	public void test404() throws IOException {		
+		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n" +
+                "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
+                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("HEAD", "/missing_dir", null, "", ""));			
+	}
+	
 }
