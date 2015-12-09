@@ -388,3 +388,6 @@
 22:31:56.164 [DEBUG] 0:0:0:0:0:0:0:1 "GET /test_folder HTTP/1.1" 200 
 22:31:56.444 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
 22:31:56.478 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:29:44.234 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/cgi-test.bat" 200 
+23:29:44.598 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+23:29:44.644 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 

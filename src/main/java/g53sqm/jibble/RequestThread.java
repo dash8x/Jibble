@@ -196,7 +196,8 @@ public class RequestThread implements Runnable {
             if (file.getParent().indexOf(_cgiBinDir) >= 0) {
                 try {
                     out.write("HTTP/1.0 200 OK\r\n".getBytes());
-                    ServerSideScriptEngine.execute(out, headers, file, path);
+                    String exec_out = ServerSideScriptEngine.execute("", headers, file, path);
+                    out.write(exec_out.getBytes());
                     out.flush();
                     logger.debug("{} \"{}\" {}", ip, path, 200);
                 }
@@ -271,6 +272,7 @@ public class RequestThread implements Runnable {
     	
     	//output string
     	String output = "";
+    	int response_code = 0;
     	
     	// URLDecocer.decode(String) is deprecated - added "UTF-8"  -  TJB
         File file = new File(_rootDir, URLDecoder.decode(path, "UTF-8"));
@@ -281,7 +283,8 @@ public class RequestThread implements Runnable {
         if (!file.toString().startsWith(_rootDir.toString())) {
             // Uh-oh, it looks like some lamer is trying to take a peek
             // outside of our web root directory.
-        	logger.debug("{} \"{}\" {}", ip, request, 404);
+        	response_code = 403;
+        	logger.debug("{} \"{}\" {}", ip, request, response_code);
         	output = "HTTP/1.0 403 Forbidden\r\n" +
                        "Content-Type: text/html\r\n" + 
                        "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
@@ -303,7 +306,8 @@ public class RequestThread implements Runnable {
             }
             if (file.isDirectory()) {
                 // print directory listing
-            	logger.debug("{} \"{}\" {}", ip, request, 200);
+            	response_code = request.equals("POST") ? 201 : 200;
+            	logger.debug("{} \"{}\" {}", ip, request, response_code);
                 if (!path.endsWith("/")) {
                     path = path + "/";
                 }
@@ -339,13 +343,39 @@ public class RequestThread implements Runnable {
         //missing
         if (!file.exists()) {
             // The file was not found.
-        	logger.debug("{} \"{}\" {}", ip, request, 404);
+        	response_code = 404;
+        	logger.debug("{} \"{}\" {}", ip, request, response_code);
             output = "HTTP/1.0 404 File Not Found\r\n" + 
                        "Content-Type: text/html\r\n" +
                        "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
                        "\r\n" +
                        "<h1>404 File Not Found</h1><code>" + path  + "</code><p><hr>" +
                        "<i>" + WebServerConfig.VERSION + "</i>";
+            return output;
+        }
+        
+        String extension = WebServerConfig.getExtension(file);
+        
+        // Execute any files in any cgi-bin directories under the web root.
+        if (file.getParent().indexOf(_cgiBinDir) >= 0) {        	
+            try {
+            	response_code = request.equals("POST") ? 201 : 200;        	
+                String request_code = request.equals("POST") ? "201 Created" : "200 OK";
+                output = "HTTP/1.0 " + request_code + "\r\n";
+                output = ServerSideScriptEngine.execute(output, headers, file, path);                
+                logger.debug("{} \"{}\" {}", ip, path, response_code);
+            }
+            catch (Throwable t) {
+                // Internal server error!
+            	response_code = 500;
+            	logger.error("{} \"{}\" {}", ip, request, 500);
+            	output = "HTTP/1.0 500 Internal Server Error\r\n";
+            	output += "Content-Type: text/html\r\n\r\n" +
+                           "<h1>Internal Server Error</h1><code>" + path  + "</code><hr>Your script produced the following error: -<p><pre>" +
+                           t.toString() + 
+                           "</pre><hr><i>" + WebServerConfig.VERSION + "</i>";                
+                return output;
+            }
             return output;
         }
         

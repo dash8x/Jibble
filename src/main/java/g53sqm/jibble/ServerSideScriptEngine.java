@@ -34,7 +34,7 @@ public class ServerSideScriptEngine {
     // This could be a lot better.  Consider server side scripting a beta feature
     // for now.
     
-    public static void execute(BufferedOutputStream out, HashMap serverVars, File file, String path) throws Throwable {
+    public static String execute(String out, HashMap serverVars, File file, String path) throws Throwable {
         
         // Place server variables into a String array.
         String[] envp = new String[serverVars.size()];
@@ -64,10 +64,13 @@ public class ServerSideScriptEngine {
         byte[] buffer = new byte[4096];
         int bytesRead;
         while ((bytesRead = in.read(buffer, 0, 4096)) != -1) {        	
-            out.write(buffer, 0, bytesRead);            
+            for ( int i = 0; i < bytesRead; i++ ) {
+            	out += (char) buffer[i];
+            }            
         }
         in.close();
         
+        return out;
     }
     
 }
