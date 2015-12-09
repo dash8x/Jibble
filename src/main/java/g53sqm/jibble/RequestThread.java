@@ -296,6 +296,20 @@ public class RequestThread implements Runnable {
             return output;
         }
         
+        //options
+        if (request.equals("OPTIONS") && (file.exists() || path.equals("*"))) {
+            // The file was not found.
+        	response_code = 200;
+        	logger.debug("{} \"{}\" {}", ip, request, response_code);
+        	 output = "HTTP/1.0 200 OK\r\n" + 
+             		"Allow: GET,POST,OPTIONS,HEAD\r\n" +
+             		"Date: " + new Date().toString() + "\r\n" +
+                     "Server: JibbleWebServer/1.0\r\n" +   
+                     "Content-Length: 0\r\n" +
+                     "\r\n";   
+            return output;
+        }
+        
         //forbidden
         if (!file.toString().startsWith(_rootDir.toString())) {
             // Uh-oh, it looks like some lamer is trying to take a peek

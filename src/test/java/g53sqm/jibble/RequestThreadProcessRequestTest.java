@@ -34,6 +34,16 @@ public class RequestThreadProcessRequestTest {
 	}
 	
 	@Test
+	public void testNotAllowedDirectory() throws IOException {		
+		assertEquals("HTTP/1.0 405 Method Not Allowed\r\n" +
+                "Content-Type: text/html\r\n" + 
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n" +
+                "<h1>405 Method Not Allowed</h1><code>/test.html</code><p><hr>" +
+                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/test_folder", null, "", ""));			
+	}
+	
+	@Test
 	public void testForbidden() throws IOException {		
 		assertEquals("HTTP/1.0 403 Forbidden\r\n" +
                 "Content-Type: text/html\r\n" + 
@@ -185,6 +195,46 @@ public class RequestThreadProcessRequestTest {
 	}
 	
 	@Test
+	public void testOPTIONSMissing() throws IOException {
+		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n" +
+                "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
+                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("OPTIONS", "/missing_dir", null, "", ""));	
+	}
+	
+	@Test
+	public void testOPTIONSFile() throws IOException {
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+				"Allow: GET,POST,OPTIONS,HEAD\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Length: 0\r\n" +
+                "\r\n", request_handler.processRequest("OPTIONS", "/test.html", null, "", ""));	
+	}
+	
+	@Test
+	public void testOPTIONSAll() throws IOException {
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+				"Allow: GET,POST,OPTIONS,HEAD\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Length: 0\r\n" +
+                "\r\n", request_handler.processRequest("OPTIONS", "*", null, "", ""));	
+	}
+	
+	@Test
+	public void testOPTIONSDirectory() throws IOException {
+		assertEquals("HTTP/1.0 200 OK\r\n" +
+				"Allow: GET,POST,OPTIONS,HEAD\r\n" +
+				"Date: " + new Date().toString() + "\r\n" +
+                "Server: JibbleWebServer/1.0\r\n" +
+                "Content-Length: 0\r\n" +
+                "\r\n", request_handler.processRequest("OPTIONS", "/test_folder", null, "", ""));	
+	}
+	
+	@Test
 	public void test404() throws IOException {		
 		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
                 "Content-Type: text/html\r\n" +
@@ -192,6 +242,16 @@ public class RequestThreadProcessRequestTest {
                 "\r\n" +
                 "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
                 "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("HEAD", "/missing_dir", null, "", ""));			
+	}
+	
+	@Test
+	public void testNotAllowedMissing() throws IOException {		
+		assertEquals("HTTP/1.0 404 File Not Found\r\n" + 
+                "Content-Type: text/html\r\n" +
+                "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                "\r\n" +
+                "<h1>404 File Not Found</h1><code>/missing_dir</code><p><hr>" +
+                "<i>" + WebServerConfig.VERSION + "</i>", request_handler.processRequest("PUT", "/missing_dir", null, "", ""));			
 	}
 	
 }
