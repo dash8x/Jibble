@@ -377,3 +377,11 @@
 19:06:29.901 [DEBUG] 0:0:0:0:0:0:0:1 "/cgi-bin/test.php" 200 
 19:06:30.145 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
 19:06:30.188 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:16:07.636 [DEBUG] 0:0:0:0:0:0:0:1 "GET / HTTP/1.1" 200 
+22:16:07.949 [DEBUG] 0:0:0:0:0:0:0:1 "GET /SQM-logo2.png HTTP/1.1" 200 
+22:16:08.042 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:16:08.059 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:16:15.467 [DEBUG] 0:0:0:0:0:0:0:1 "GET /test_folder HTTP/1.1" 200 
+22:16:15.929 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:16:15.954 [DEBUG] 0:0:0:0:0:0:0:1 "GET /favicon.ico HTTP/1.1" 200 
+22:16:25.462 [DEBUG] 0:0:0:0:0:0:0:1 "null" 405 

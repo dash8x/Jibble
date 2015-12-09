@@ -289,6 +289,50 @@ public class RequestThread implements Runnable {
                        "<i>" + WebServerConfig.VERSION + "</i>";
             return output;
         }
+        
+        if (file.isDirectory()) {
+            // Check to see if there are any index files in the directory.
+            for (int i = 0; i < WebServerConfig.DEFAULT_FILES.length; i++) {
+                File indexFile = new File(file, WebServerConfig.DEFAULT_FILES[i]);
+                if (indexFile.exists() && !indexFile.isDirectory()) {
+                    file = indexFile;
+                    break;
+                }
+            }
+            if (file.isDirectory()) {
+                // print directory listing
+            	logger.debug("{} \"{}\" {}", ip, request, 200);
+                if (!path.endsWith("/")) {
+                    path = path + "/";
+                }
+                File[] files = file.listFiles();
+                int request_code = request.equals("POST") ? 201 : 200;
+                output = "HTTP/1.0 " + request_code + " OK\r\n" +
+                           "Content-Type: text/html\r\n" +
+                           "Expires: Thu, 01 Dec 1994 16:00:00 GMT\r\n" +
+                           "\r\n";
+                if (request.equals("HEAD")) {
+                	return output;
+                }
+                output += "<h1>Directory Listing</h1>" +
+                           "<h3>" + path + "</h3>" +
+                           "<table border=\"0\" cellspacing=\"8\">" +
+                           "<tr><td><b>Filename</b><br></td><td align=\"right\"><b>Size</b></td><td><b>Last Modified</b></td></tr>" +
+                           "<tr><td><b><a href=\"../\">../</b><br></td><td></td><td></td></tr>";
+                for (int i = 0; i < files.length; i++) {
+                    file = files[i];
+                    if (file.isDirectory()) {
+                    	output += "<tr><td><b><a href=\"" + path + file.getName() + "/\">" + file.getName() + "/</a></b></td><td></td><td></td></tr>";
+                    }
+                    else {
+                    	output += "<tr><td><a href=\"" + path + file.getName() + "\">" + file.getName() + "</a></td><td align=\"right\">" + file.length() + "</td><td>" + new Date(file.lastModified()).toString() + "</td></tr>";
+                    }
+                }
+                output += "</table><hr>" + 
+                           "<i>" + WebServerConfig.VERSION + "</i>";
+                return output;
+            }
+        }
     	
     	return "";
     }
